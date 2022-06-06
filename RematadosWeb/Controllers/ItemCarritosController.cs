@@ -10,22 +10,22 @@ using RematadosWeb.Models;
 
 namespace RematadosWeb.Controllers
 {
-    public class ArticulosController : Controller
+    public class ItemCarritosController : Controller
     {
         private readonly RematadosDatabaseContext _context;
 
-        public ArticulosController(RematadosDatabaseContext context)
+        public ItemCarritosController(RematadosDatabaseContext context)
         {
             _context = context;
         }
 
-        // GET: Articulos
+        // GET: ItemCarritos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Articulos.ToListAsync());
+            return View(await _context.ItemCarritos.ToListAsync());
         }
 
-        // GET: Articulos/Details/5
+        // GET: ItemCarritos/Details/5
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace RematadosWeb.Controllers
                 return NotFound();
             }
 
-            var articulo = await _context.Articulos
+            var itemCarrito = await _context.ItemCarritos
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (articulo == null)
+            if (itemCarrito == null)
             {
                 return NotFound();
             }
 
-            return View(articulo);
+            return View(itemCarrito);
         }
 
-        // GET: Articulos/Create
+        // GET: ItemCarritos/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Articulos/Create
+        // POST: ItemCarritos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Descripcion,Precio,Estado,Categoria")] Articulo articulo)
+        public async Task<IActionResult> Create([Bind("Id,Cantidad")] ItemCarrito itemCarrito)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(articulo);
+                _context.Add(itemCarrito);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(articulo);
+            return View(itemCarrito);
         }
 
-        // GET: Articulos/Edit/5
+        // GET: ItemCarritos/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace RematadosWeb.Controllers
                 return NotFound();
             }
 
-            var articulo = await _context.Articulos.FindAsync(id);
-            if (articulo == null)
+            var itemCarrito = await _context.ItemCarritos.FindAsync(id);
+            if (itemCarrito == null)
             {
                 return NotFound();
             }
-            return View(articulo);
+            return View(itemCarrito);
         }
 
-        // POST: Articulos/Edit/5
+        // POST: ItemCarritos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,Nombre,Descripcion,Precio,Estado,Categoria")] Articulo articulo)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Cantidad")] ItemCarrito itemCarrito)
         {
-            if (id != articulo.Id)
+            if (id != itemCarrito.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace RematadosWeb.Controllers
             {
                 try
                 {
-                    _context.Update(articulo);
+                    _context.Update(itemCarrito);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ArticuloExists(articulo.Id))
+                    if (!ItemCarritoExists(itemCarrito.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace RematadosWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(articulo);
+            return View(itemCarrito);
         }
 
-        // GET: Articulos/Delete/5
+        // GET: ItemCarritos/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace RematadosWeb.Controllers
                 return NotFound();
             }
 
-            var articulo = await _context.Articulos
+            var itemCarrito = await _context.ItemCarritos
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (articulo == null)
+            if (itemCarrito == null)
             {
                 return NotFound();
             }
 
-            return View(articulo);
+            return View(itemCarrito);
         }
 
-        // POST: Articulos/Delete/5
+        // POST: ItemCarritos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var articulo = await _context.Articulos.FindAsync(id);
-            _context.Articulos.Remove(articulo);
+            var itemCarrito = await _context.ItemCarritos.FindAsync(id);
+            _context.ItemCarritos.Remove(itemCarrito);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ArticuloExists(string id)
+        private bool ItemCarritoExists(string id)
         {
-            return _context.Articulos.Any(e => e.Id == id);
+            return _context.ItemCarritos.Any(e => e.Id == id);
         }
     }
 }

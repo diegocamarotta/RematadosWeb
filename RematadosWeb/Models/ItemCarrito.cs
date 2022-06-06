@@ -7,19 +7,15 @@ using System.Threading.Tasks;
 
 namespace RematadosWeb.Models
 {
-    public class Articulo
+    public class ItemCarrito
     {
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
         public string Id { get; set; }
-        public string Nombre { get; set; }
-        public string Descripcion { get; set; }
-        public double Precio { get; set; }
-        public Usuario Vendedor { get; set; }
-        public Usuario Comprador { get; set; }
-        public EstadoArticulo Estado { get; set; }
-        public Categoria Categoria { get; set; }
+        public int Cantidad { get; set; }
+        public Articulo Articulo { get; set; }
 
 
     }

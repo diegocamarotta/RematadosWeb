@@ -15,6 +15,10 @@ namespace RematadosWeb.Context
         }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Articulo> Articulos { get; set; }
+
+        public DbSet<Mensaje> Mensajes { get; set; }
+
+        public DbSet<ItemCarrito> ItemCarritos { get; set; }
     }
 }
 

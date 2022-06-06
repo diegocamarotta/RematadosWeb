@@ -10,22 +10,22 @@ using RematadosWeb.Models;
 
 namespace RematadosWeb.Controllers
 {
-    public class ArticulosController : Controller
+    public class MensajesController : Controller
     {
         private readonly RematadosDatabaseContext _context;
 
-        public ArticulosController(RematadosDatabaseContext context)
+        public MensajesController(RematadosDatabaseContext context)
         {
             _context = context;
         }
 
-        // GET: Articulos
+        // GET: Mensajes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Articulos.ToListAsync());
+            return View(await _context.Mensajes.ToListAsync());
         }
 
-        // GET: Articulos/Details/5
+        // GET: Mensajes/Details/5
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace RematadosWeb.Controllers
                 return NotFound();
             }
 
-            var articulo = await _context.Articulos
+            var mensaje = await _context.Mensajes
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (articulo == null)
+            if (mensaje == null)
             {
                 return NotFound();
             }
 
-            return View(articulo);
+            return View(mensaje);
         }
 
-        // GET: Articulos/Create
+        // GET: Mensajes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Articulos/Create
+        // POST: Mensajes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Descripcion,Precio,Estado,Categoria")] Articulo articulo)
+        public async Task<IActionResult> Create([Bind("Id,Texto,Fechahora")] Mensaje mensaje)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(articulo);
+                _context.Add(mensaje);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(articulo);
+            return View(mensaje);
         }
 
-        // GET: Articulos/Edit/5
+        // GET: Mensajes/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace RematadosWeb.Controllers
                 return NotFound();
             }
 
-            var articulo = await _context.Articulos.FindAsync(id);
-            if (articulo == null)
+            var mensaje = await _context.Mensajes.FindAsync(id);
+            if (mensaje == null)
             {
                 return NotFound();
             }
-            return View(articulo);
+            return View(mensaje);
         }
 
-        // POST: Articulos/Edit/5
+        // POST: Mensajes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,Nombre,Descripcion,Precio,Estado,Categoria")] Articulo articulo)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Texto,Fechahora")] Mensaje mensaje)
         {
-            if (id != articulo.Id)
+            if (id != mensaje.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace RematadosWeb.Controllers
             {
                 try
                 {
-                    _context.Update(articulo);
+                    _context.Update(mensaje);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ArticuloExists(articulo.Id))
+                    if (!MensajeExists(mensaje.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace RematadosWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(articulo);
+            return View(mensaje);
         }
 
-        // GET: Articulos/Delete/5
+        // GET: Mensajes/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace RematadosWeb.Controllers
                 return NotFound();
             }
 
-            var articulo = await _context.Articulos
+            var mensaje = await _context.Mensajes
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (articulo == null)
+            if (mensaje == null)
             {
                 return NotFound();
             }
 
-            return View(articulo);
+            return View(mensaje);
         }
 
-        // POST: Articulos/Delete/5
+        // POST: Mensajes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var articulo = await _context.Articulos.FindAsync(id);
-            _context.Articulos.Remove(articulo);
+            var mensaje = await _context.Mensajes.FindAsync(id);
+            _context.Mensajes.Remove(mensaje);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ArticuloExists(string id)
+        private bool MensajeExists(string id)
         {
-            return _context.Articulos.Any(e => e.Id == id);
+            return _context.Mensajes.Any(e => e.Id == id);
         }
     }
 }

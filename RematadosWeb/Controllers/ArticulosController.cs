@@ -48,6 +48,10 @@ namespace RematadosWeb.Controllers
         {
             return View();
         }
+        public IActionResult CrearArticulo()
+        {
+            return View();
+        }
 
         // POST: Articulos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
@@ -59,6 +63,7 @@ namespace RematadosWeb.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(articulo);
+                articulo.Estado = EstadoArticulo.EN_VENTA;
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -149,5 +154,41 @@ namespace RematadosWeb.Controllers
         {
             return _context.Articulos.Any(e => e.Id == id);
         }
+
+
+        // GET: Articulos/CancelarArticulo/5
+        public async Task<IActionResult> CancelarArticulo(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var articulo = await _context.Articulos
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (articulo == null)
+            {
+                return NotFound();
+            }
+
+            return View(articulo);
+        }
+
+        // POST: Articulos/Delete/5
+        [HttpPost, ActionName("CancelarArticulo")]
+        [ValidateAntiForgeryToken]
+       //public async Task<IActionResult> CancelarArticuloConfirmado(string id, [Bind("Id,Nombre,Descripcion,Precio,Estado,Categoria")] Articulo articulo)
+        public async Task<IActionResult> CancelarArticuloConfirmado(string id)
+        {
+            var articulo = await _context.Articulos.FindAsync(id);
+            _context.Update(articulo);
+            articulo.Estado = EstadoArticulo.CANCELADO;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+       
+        }
+
+
     }
 }

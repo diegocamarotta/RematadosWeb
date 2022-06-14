@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model string
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -44,13 +45,15 @@
                 </div>
             </div>
 
-            UsuarioActual
-            <select name="UsuarioActual" id="UsuarioActual" >
+            Bienvenido: <div id="UsuarioActualLabel">vacio</div>
+            <select name="UsuarioActual" id="UsuarioActual"  onchange="SetUsuario(this)">
+                <option value="NADIE">NADIE</option>
                 <option value="111111">Usuario1</option>
                 <option value="222222">Usuario2</option>
                 <option value="333333">Usuario3</option>
                 <option value="444444">Usuario4</option>
             </select>
+
         </nav>
 
 
@@ -71,6 +74,18 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        window.onload = function () {
+            //var user = HttpContext.Session.SetString("sessionString", name);
+            sessionStorage.setItem("UsuarioActual", "NADIE");
+            document.getElementById("UsuarioActualLabel").innerHTML = sessionStorage.getItem("UsuarioActual");
+        }
+
+        function SetUsuario(usuario) {
+            sessionStorage.setItem("UsuarioActual", usuario.value);
+            document.getElementById("UsuarioActualLabel").innerHTML = sessionStorage.getItem("UsuarioActual");
+        }
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

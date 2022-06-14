@@ -29,7 +29,7 @@ namespace RematadosWeb
         {
             services.AddControllersWithViews();
             services.AddControllers().AddNewtonsoftJson();
-
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddDbContext<RematadosDatabaseContext>(options => options.UseSqlServer(Configuration["ConnectionString:RematadosWebDBConnection"]));
 
             //services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);

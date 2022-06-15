@@ -31,7 +31,8 @@ namespace RematadosWeb
             services.AddControllers().AddNewtonsoftJson();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddDbContext<RematadosDatabaseContext>(options => options.UseSqlServer(Configuration["ConnectionString:RematadosWebDBConnection"]));
-
+            services.AddSession();
+            services.AddMvc();
             //services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddControllers().AddNewtonsoftJson(options => 
             {
@@ -56,7 +57,7 @@ namespace RematadosWeb
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseSession();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

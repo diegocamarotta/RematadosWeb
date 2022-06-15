@@ -6,17 +6,23 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+
 
 namespace RematadosWeb.Controllers
 {
     public class HomeController : Controller
     {
+
+
+
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
+
 
         public IActionResult Index()
         {
@@ -25,7 +31,14 @@ namespace RematadosWeb.Controllers
 
         public IActionResult Dashboard()
         {
-            return View();
+            
+            // USUARIO DEFAULT
+            HttpContext.Session.SetString("UsuarioID", "11222333");
+
+            var usuarioID = HttpContext.Session.GetString("UsuarioID");
+
+
+            return View(model: usuarioID);
         }
         public IActionResult Privacy()
         {

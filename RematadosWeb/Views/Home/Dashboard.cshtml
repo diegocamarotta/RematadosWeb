@@ -1,12 +1,13 @@
-﻿@{
+﻿@model string
+@{
     ViewData["Title"] = "Mi pagina principal";
 }
 <html>
 <body>
     <div class="text-center">
-        <h1 class="display-4">Bienvenido, <span class="UsuarioActualLabel">vacio</span>!</h1>
-        
-        
+        <h1 class="display-4">Bienvenido, @Html.DisplayFor(Model => Model) <span class="UsuarioActualLabel">vacio</span>!</h1>
+
+
 
     </div>
 

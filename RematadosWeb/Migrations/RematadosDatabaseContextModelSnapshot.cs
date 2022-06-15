@@ -28,8 +28,8 @@ namespace RematadosWeb.Migrations
                     b.Property<int>("Categoria")
                         .HasColumnType("int");
 
-                    b.Property<string>("CompradorDni")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("CompradorDni")
+                        .HasColumnType("int");
 
                     b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(max)");
@@ -43,8 +43,8 @@ namespace RematadosWeb.Migrations
                     b.Property<double>("Precio")
                         .HasColumnType("float");
 
-                    b.Property<string>("VendedorDni")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("VendedorDni")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -98,20 +98,23 @@ namespace RematadosWeb.Migrations
 
             modelBuilder.Entity("RematadosWeb.Models.Usuario", b =>
                 {
-                    b.Property<string>("Dni")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Dni")
+                        .HasColumnType("int");
 
                     b.Property<string>("Apellidos")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombres")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Dni");

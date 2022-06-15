@@ -26,7 +26,7 @@ namespace RematadosWeb.Controllers
         }
 
         // GET: Usuarios/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -66,7 +66,7 @@ namespace RematadosWeb.Controllers
         }
 
         // GET: Usuarios/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -86,7 +86,7 @@ namespace RematadosWeb.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Dni,Nombres,Apellidos,Email,Password")] Usuario usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("Dni,Nombres,Apellidos,Email,Password")] Usuario usuario)
         {
             if (id != usuario.Dni)
             {
@@ -117,7 +117,7 @@ namespace RematadosWeb.Controllers
         }
 
         // GET: Usuarios/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
@@ -137,7 +137,7 @@ namespace RematadosWeb.Controllers
         // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var usuario = await _context.Usuarios.FindAsync(id);
             _context.Usuarios.Remove(usuario);
@@ -145,9 +145,23 @@ namespace RematadosWeb.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UsuarioExists(string id)
+
+        private bool UsuarioExists(int? id)
         {
             return _context.Usuarios.Any(e => e.Dni == id);
         }
+
+
+        public IActionResult DNIExists(int? Dni){
+
+               
+            if (UsuarioExists(Dni)) {
+                 return Json(false);
+           }
+            
+            return  Json(true);
+        }
+
+
     }
 }

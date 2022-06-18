@@ -14,9 +14,15 @@ namespace RematadosWeb.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
         public string Id { get; set; }
+
+        public Usuario Usuario {get; set;}
+
+
+
+        //[Required(ErrorMessage = "Please Provide Cantidad", AllowEmpty = false)]
         public int Cantidad { get; set; }
         public Articulo Articulo { get; set; }
 
-
+        
     }
 }

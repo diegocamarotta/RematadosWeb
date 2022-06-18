@@ -93,6 +93,20 @@
                 divs[i].innerHTML = user;
             }
         }
+
+
+        function volver() {
+            var cantItems = document.forms["formulario"]["Cantidad"].value;
+            if (cantItems == "") {
+                alert('El campo no puede estar vacio')
+                return (false)
+            } else {
+                return true;
+            }
+  
+
+        }
+
     </script>
     @RenderSection("Scripts", required: false)
 </body>

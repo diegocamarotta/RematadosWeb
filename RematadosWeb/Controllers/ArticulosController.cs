@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RematadosWeb.Context;
@@ -66,6 +68,7 @@ namespace RematadosWeb.Controllers
                 articulo.Estado = EstadoArticulo.EN_VENTA;
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+                
             }
             return View(articulo);
         }
@@ -174,6 +177,58 @@ namespace RematadosWeb.Controllers
             return View(articulo);
         }
 
+        public async Task<IActionResult> AñadirAlCarrito(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var articulo = await _context.Articulos
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (articulo == null)
+            {
+                return NotFound();
+            }
+
+            return View(articulo);
+        }
+
+        [HttpPost, ActionName("AñadirAlCarrito")]
+        [ValidateAntiForgeryToken]
+        //public async Task<IActionResult> CancelarArticuloConfirmado(string id, [Bind("Id,Nombre,Descripcion,Precio,Estado,Categoria")] Articulo articulo)
+        public async Task<IActionResult> AñadirAlCarritoConfirmado(string id)
+        {
+            var articulo = await _context.Articulos.FindAsync(id);
+            // _context.Update(articulo);
+            var itemCarrito = await _context.ItemCarritos
+                .FirstOrDefaultAsync(m => m.Articulo == articulo);
+
+            var cant = Request.Form["Cantidad"];
+            if (cant == "") {
+                
+                return RedirectToAction(nameof(Index));
+            }
+            int cantInt = Int32.Parse(cant);
+
+            if (itemCarrito == null)
+            {
+                var alCarrito = new ItemCarrito
+                {
+                Cantidad = cantInt,
+                Articulo = articulo
+                };
+                _context.ItemCarritos.Add(alCarrito);
+                await _context.SaveChangesAsync();
+
+            }
+            return RedirectToAction(nameof(Index));
+           }
+
+  
+
+
+
         // POST: Articulos/Delete/5
         [HttpPost, ActionName("CancelarArticulo")]
         [ValidateAntiForgeryToken]
@@ -186,7 +241,7 @@ namespace RematadosWeb.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
 
-       
+  
         }
 
 

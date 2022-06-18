@@ -5,6 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20220615211723_start.cs" />
+    <Compile Remove="Migrations\20220615211723_start.Designer.cs" />
+    <Compile Remove="Migrations\20220618131921_RematadosWebDB.cs" />
+    <Compile Remove="Migrations\20220618131921_RematadosWebDB.Designer.cs" />
+    <Compile Remove="Migrations\20220618132126_RematadosWebDB.cs" />
+    <Compile Remove="Migrations\20220618132126_RematadosWebDB.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Articulos\Index1.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.25" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.26" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />

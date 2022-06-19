@@ -7,10 +7,12 @@ namespace RematadosWeb.Models
 {
     public enum Categoria
     {
-       VEHICULOS,
-       ROPA,
+       ELECTRODOMESTICO,
        INMUEBLES,
+       ROPA,
        TECNOLOGIA,
-       ELECTRODOMESTICOS
+       VEHICULOS,
+      
+      
     }
 }

@@ -30,13 +30,15 @@ namespace RematadosWeb.Controllers
         }
 
         public IActionResult Dashboard()
+
+
         {
-            
+
+
             // USUARIO DEFAULT
             HttpContext.Session.SetString("UsuarioID", "444");
 
             var usuarioID = HttpContext.Session.GetString("UsuarioID");
-
 
             return View(model: usuarioID);
         }

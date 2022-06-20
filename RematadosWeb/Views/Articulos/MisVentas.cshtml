@@ -53,7 +53,8 @@
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                     <a asp-action="CancelarArticulo" asp-route-id="@item.Id">Cancelar</a> |
-                    <a asp-action="AñadirAlCarrito" asp-route-id="@item.Id">Añadir al carrito</a>
+                    <a asp-action="AñadirAlCarrito" asp-route-id="@item.Id">Añadir al carrito</a> |
+                    <a asp-controller="Mensajes" asp-action="MensajesOperacion" asp-route-id="@item.Id">Mensajes</a>
                 </td>
             </tr>
         }

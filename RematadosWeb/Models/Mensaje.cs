@@ -16,7 +16,7 @@ namespace RematadosWeb.Models
         public string Texto { get; set; }
         public Articulo Articulo { get; set; }
 
-      
+        public Usuario Usuario { get; set; }
 
         public DateTime Fechahora { get; set; }
 

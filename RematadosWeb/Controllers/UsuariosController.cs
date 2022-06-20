@@ -162,6 +162,11 @@ namespace RematadosWeb.Controllers
             return  Json(true);
         }
 
+        public Usuario GetUsuarioFromId(int id)
+        {
+            var usuario = _context.Usuarios.Find(id);
 
+            return usuario;
+        }
     }
 }

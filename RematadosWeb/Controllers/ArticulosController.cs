@@ -314,9 +314,16 @@ namespace RematadosWeb.Controllers
         {
 
 
-            var usuario = HttpContext.Session.GetString("UsuarioID");
+            var usuario = HttpContext.Session.GetInt32("UsuarioID");
             var misCompras = (from art in _context.Articulos where art.Comprador.Dni.Equals(usuario) select art).ToList();
             return View(model: misCompras);
+        }
+
+        public Articulo GetArticuloFromId(String id) 
+        {
+            var articulo = _context.Articulos.Find(id);
+
+            return articulo;
         }
     }
 }

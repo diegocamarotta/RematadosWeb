@@ -1,0 +1,39 @@
+﻿
+@model dynamic
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+Conversacion para la compra de:<span STYLE="font-weight:bold">@Model.Articulo.Nombre</span>
+
+<table class="table" syle="">
+
+    <tbody>
+        @foreach (Mensaje mensaje in Model.Mensajes)
+        {
+            <tr>
+                <td>
+                    <div class="mensaje">@Html.DisplayFor(modelItem => mensaje.Texto)</div>
+                    <div class="timestamp">Escrito por @Html.DisplayFor(modelItem => mensaje.Usuario.Nombres) - @Html.DisplayFor(modelItem => mensaje.Fechahora)</div>
+
+                </td>
+
+            </tr>
+        }
+    </tbody>
+
+    </table>
+<form asp-action="NuevoMensaje">
+    <label for="text">Nuevo mensaje:</label><br>
+    <input type="text" id="Texto" name="Texto" placeholder="escribe tu mensaje aqui..."><br>
+    <input type="hidden" name="ArticuloId" value="@Model.Articulo.Id" />
+    <input type="submit" value="Submit">
+
+</form>

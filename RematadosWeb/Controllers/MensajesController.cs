@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RematadosWeb.Context;
 using RematadosWeb.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace RematadosWeb.Controllers
 {
@@ -137,6 +139,7 @@ namespace RematadosWeb.Controllers
         // POST: Mensajes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var mensaje = await _context.Mensajes.FindAsync(id);
@@ -149,5 +152,41 @@ namespace RematadosWeb.Controllers
         {
             return _context.Mensajes.Any(e => e.Id == id);
         }
+
+
+        public  IActionResult MensajesOperacion(String id)        {
+
+            
+            dynamic conversacion = new ExpandoObject();
+            var art = new ArticulosController(_context).GetArticuloFromId(id);
+            conversacion.Articulo = art;
+            conversacion.Mensajes = (from mess in _context.Mensajes where mess.Articulo.Equals(art) orderby mess.Fechahora ascending select mess).ToList();
+
+            return  View(model: conversacion);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> NuevoMensaje([Bind("Id,Texto,Fechahora")] Mensaje mensaje)
+        {
+          
+            var usrActual = HttpContext.Session.GetInt32("UsuarioID");
+            var usr = new UsuariosController(_context).GetUsuarioFromId(usrActual.Value);
+            mensaje.Usuario = usr;
+            mensaje.Fechahora = DateTime.Now;
+            var artid = Request.Form["ArticuloId"];
+            var art = new ArticulosController(_context).GetArticuloFromId(artid);
+            mensaje.Articulo = art;
+            
+            if (ModelState.IsValid)
+            {
+                _context.Add(mensaje);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(MensajesOperacion),new { id = artid });
+            }
+
+            return RedirectToAction("MensajesOperacion", artid);
+        }
+
     }
 }

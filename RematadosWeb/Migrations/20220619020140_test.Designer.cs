@@ -10,8 +10,8 @@ using RematadosWeb.Context;
 namespace RematadosWeb.Migrations
 {
     [DbContext(typeof(RematadosDatabaseContext))]
-    [Migration("20220618133802_RematadosWebDB")]
-    partial class RematadosWebDB
+    [Migration("20220619020140_test")]
+    partial class test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -69,9 +69,14 @@ namespace RematadosWeb.Migrations
                     b.Property<int>("Cantidad")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UsuarioDni")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ArticuloId");
+
+                    b.HasIndex("UsuarioDni");
 
                     b.ToTable("ItemCarritos");
                 });
@@ -140,6 +145,10 @@ namespace RematadosWeb.Migrations
                     b.HasOne("RematadosWeb.Models.Articulo", "Articulo")
                         .WithMany()
                         .HasForeignKey("ArticuloId");
+
+                    b.HasOne("RematadosWeb.Models.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioDni");
                 });
 
             modelBuilder.Entity("RematadosWeb.Models.Mensaje", b =>

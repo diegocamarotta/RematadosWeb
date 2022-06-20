@@ -33,9 +33,9 @@ namespace RematadosWeb.Controllers
         {
             
             // USUARIO DEFAULT
-            HttpContext.Session.SetString("UsuarioID", "444");
+            HttpContext.Session.SetInt32("UsuarioID", 11222333);
 
-            var usuarioID = HttpContext.Session.GetString("UsuarioID");
+            var usuarioID = HttpContext.Session.GetInt32("UsuarioID");
 
 
             return View(model: usuarioID);

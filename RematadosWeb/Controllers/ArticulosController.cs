@@ -244,6 +244,22 @@ namespace RematadosWeb.Controllers
   
         }
 
+        public async Task<IActionResult> MisVentas() 
+        { 
 
+
+            var usuario = HttpContext.Session.GetInt32("UsuarioID");
+            var misVentas = (from art in _context.Articulos where art.Vendedor.Dni.Equals(usuario) select art).ToList();
+            return View(model: misVentas);
+        }
+
+        public async Task<IActionResult> MisCompras()
+        {
+
+
+            var usuario = HttpContext.Session.GetString("UsuarioID");
+            var misCompras = (from art in _context.Articulos where art.Comprador.Dni.Equals(usuario) select art).ToList();
+            return View(model: misCompras);
+        }
     }
 }

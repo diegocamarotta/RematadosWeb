@@ -16,6 +16,9 @@ namespace RematadosWeb.Controllers
     {
         private readonly RematadosDatabaseContext _context;
 
+
+        // var usuarioID = HttpContext.Session.GetString("UsuarioID");
+
         public ArticulosController(RematadosDatabaseContext context)
         {
             _context = context;
@@ -25,6 +28,60 @@ namespace RematadosWeb.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Articulos.ToListAsync());
+        }
+
+        public async Task<IActionResult> ListadoArticulos()
+        {
+
+            var articulos = await _context.Articulos.Where(articulos => articulos.Estado == EstadoArticulo.EN_VENTA).ToListAsync();
+           articulos = articulos.OrderBy(i => i.Categoria).ThenBy(i => i.Nombre).ToList();
+            
+
+
+            return View(articulos);
+        }
+
+        public IActionResult ArticuloNoEncontrado()
+        {
+            return View();
+        }
+
+
+        public async Task<IActionResult> Buscar(string id)
+        {
+
+            /* var articulos = await _context.Articulos.Where(articulos => articulos.Nombre.Contains(id)).ToListAsync();
+              articulos = articulos.OrderBy(i => i.Categoria).ThenBy(i => i.Nombre).ToList();
+              return View(articulos);*/
+            var articulos = await _context.Articulos.Where(articulos => articulos.Estado == EstadoArticulo.EN_VENTA).ToListAsync();
+            articulos = articulos.OrderBy(i => i.Categoria).ThenBy(i => i.Nombre).ToList();
+            return View(articulos);
+        
+            
+        }
+
+        [HttpPost, ActionName("Buscar")]
+        [ValidateAntiForgeryToken]
+       
+        public async Task<IActionResult> BuscarConfirmado(string id)
+        {
+            var input = Request.Form["Busqueda"];
+
+           
+         var articulos = await _context.Articulos.Where(articulos => articulos.Nombre.Contains(input)).ToListAsync();
+
+            articulos = articulos.OrderBy(i => i.Categoria).ThenBy(i => i.Nombre).ToList();
+
+            if (articulos.Count() != 0)
+            {
+                return View(articulos);
+            }
+            else {
+                return RedirectToAction(nameof(ArticuloNoEncontrado));
+            }
+
+            
+           
         }
 
         // GET: Articulos/Details/5

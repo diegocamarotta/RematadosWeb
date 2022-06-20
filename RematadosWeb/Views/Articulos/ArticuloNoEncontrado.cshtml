@@ -1,0 +1,12 @@
+﻿@model IEnumerable<RematadosWeb.Models.Articulo>
+
+@{
+    ViewData["Title"] = "Articulo no encontrado";
+}
+
+<h1>El articulo que buscar no existe!</h1>
+<h2>Te invitamos a volver al inicio para seguir buscando:</h2>
+
+<a asp-controller="Articulos" asp-action="ListadoArticulos" class="normal-btn">Volver</a>
+    
+

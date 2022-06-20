@@ -7,6 +7,7 @@
     <title>@ViewData["Title"] - RematadosWeb</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href ="~/css/search.css"/>
 </head>
 <body>
     <header>
@@ -51,8 +52,14 @@
                 </div>
             </div>
 
+            <form asp-controller="Articulos" name="formBusqueda" asp-action="Buscar" class="search" onsubmit="return validar()">
+                <input type="text" id="Busqueda" name="Busqueda" class="search-box" placeholder="Busca un artículo (celular, auto,electrodoméstico)">
+                <input type="submit" class="search-btn" value="Buscar">
+                @*<button type="submit" class="search-btn">Buscar</button>*@
+            </form>
+
             Bienvenido: <div class="UsuarioActualLabel">vacio</div>
-            <select name="UsuarioActual" id="SetUsuario"  onchange="SetUsuario(this)">
+            <select name="UsuarioActual" id="SetUsuario" onchange="SetUsuario(this)">
                 <option value="NADIE">NADIE</option>
                 <option value="111111">Usuario1</option>
                 <option value="222222">Usuario2</option>
@@ -100,18 +107,22 @@
             }
         }
 
+            function validar() {
 
-        function volver() {
-            var cantItems = document.forms["formulario"]["Cantidad"].value;
-            if (cantItems == "") {
-                alert('El campo no puede estar vacio')
-                return (false)
-            } else {
-                return true;
+               var busqueda = document.forms["formBusqueda"]["Busqueda"].value;
+                if (busqueda == "") {
+                    document.formBusqueda.Busqueda.focus();
+                    alert("El campo no puede estar vacio");
+                    return false;
+                }
+
+                else {
+                    return true;
+                }
             }
   
 
-        }
+        
 
     </script>
     @RenderSection("Scripts", required: false)

@@ -7,11 +7,19 @@
     <div class="text-center">
         <h1 class="display-4">Bienvenido, @Html.DisplayFor(Model => Model) <span class="UsuarioActualLabel">vacio</span>!</h1>
 
+        <form asp-controller="Articulos" asp-action="ListadoArticulos"> 
+            <input type="submit" value="Ir (boton temporal)" />
+        </form>
+       
+        @*La idea es que con js se quede 2 seg en esta pantalla y luego pase a 
+        la otra view, es algo temporal para probar funcionalidad*@
 
 
 
-    </div>
+</div>
 
+    
 </body>
+
 
 </html>

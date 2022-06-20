@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\css\NewFolder\**" />
+    <Content Remove="wwwroot\css\NewFolder\**" />
+    <EmbeddedResource Remove="wwwroot\css\NewFolder\**" />
+    <None Remove="wwwroot\css\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Migrations\20220615211723_start.cs" />
     <Compile Remove="Migrations\20220615211723_start.Designer.cs" />
     <Compile Remove="Migrations\20220618131921_RematadosWebDB.cs" />
@@ -15,6 +22,7 @@
 
   <ItemGroup>
     <Content Remove="Views\Articulos\Index1.cshtml" />
+    <Content Remove="Views\Articulos\Index2.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

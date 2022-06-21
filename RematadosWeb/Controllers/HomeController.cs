@@ -26,7 +26,11 @@ namespace RematadosWeb.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            HttpContext.Session.SetInt32("UsuarioID", 0);
+
+            var usuarioID = HttpContext.Session.GetInt32("UsuarioID");
+
+            return View(model: usuarioID);
         }
 
         public IActionResult Dashboard()

@@ -124,6 +124,11 @@ namespace RematadosWeb.Controllers
         {
             if (ModelState.IsValid)
             {
+                var usrActual = HttpContext.Session.GetInt32("UsuarioID");
+                var usr = new UsuariosController(_context).GetUsuarioFromId(usrActual.Value);
+                articulo.Vendedor = usr;
+
+
                 _context.Add(articulo);
                 articulo.Estado = EstadoArticulo.EN_VENTA;
                 await _context.SaveChangesAsync();

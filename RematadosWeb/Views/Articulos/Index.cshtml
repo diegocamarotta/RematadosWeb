@@ -13,6 +13,9 @@
     <thead>
         <tr>
             <th>
+                Imagen
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
             <th>
@@ -33,6 +36,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                <img src="@Url.Content(String.Format("~/photos/" + item.Id + ".jpg"))" onerror="this.src='/photos/sinimagen.jpg';" style="max-width:150px">
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>

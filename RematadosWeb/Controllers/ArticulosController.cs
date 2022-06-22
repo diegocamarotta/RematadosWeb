@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,19 +10,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RematadosWeb.Context;
 using RematadosWeb.Models;
+using Microsoft.Extensions.Hosting;
+using System.IO;
 
 namespace RematadosWeb.Controllers
 {
     public class ArticulosController : Controller
     {
         private readonly RematadosDatabaseContext _context;
+        private readonly IHostEnvironment hostingEnvironment;
 
 
-        // var usuarioID = HttpContext.Session.GetString("UsuarioID");
-
-        public ArticulosController(RematadosDatabaseContext context)
+        public ArticulosController(RematadosDatabaseContext context, IHostEnvironment environment = null)
         {
             _context = context;
+            hostingEnvironment = environment;
         }
 
         // GET: Articulos
@@ -117,13 +120,25 @@ namespace RematadosWeb.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Descripcion,Precio,Estado,Categoria")] Articulo articulo)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Descripcion,Precio,Estado,Categoria,Foto")] Articulo articulo)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(articulo);
                 articulo.Estado = EstadoArticulo.EN_VENTA;
                 await _context.SaveChangesAsync();
+               
+                if (articulo.Foto != null)
+                {
+                    //var uniqueFileName = GetUniqueFileName(model.MyImage.FileName);
+                    var uploads = Path.Combine(hostingEnvironment.ContentRootPath, "wwwroot/photos");
+                    var filePath = Path.Combine(uploads, articulo.Id+".jpg");
+                    articulo.Foto.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                    //to do : Save uniqueFileName  to your db table   
+                }
+              
+
                 return RedirectToAction(nameof(Index));
                 
             }
@@ -322,7 +337,8 @@ namespace RematadosWeb.Controllers
         public Articulo GetArticuloFromId(String id) 
         {
             var articulo = _context.Articulos.Find(id);
-
+     
+            
             return articulo;
         }
     }

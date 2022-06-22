@@ -7,6 +7,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using RematadosWeb.Context;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 
 
 namespace RematadosWeb.Controllers
@@ -15,36 +18,97 @@ namespace RematadosWeb.Controllers
     {
 
 
+        private readonly RematadosDatabaseContext _context;
+
+   
 
         private readonly ILogger<HomeController> _logger;
+       
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, RematadosDatabaseContext context)
         {
             _logger = logger;
+            _context = context;
+      
         }
 
 
-        public IActionResult Index()
+
+        public ActionResult Index()
         {
-            HttpContext.Session.SetInt32("UsuarioID", 0);
 
             var usuarioID = HttpContext.Session.GetInt32("UsuarioID");
 
-            return View(model: usuarioID);
+            if (usuarioID == 0 || usuarioID == null)
+            {
+                return View();
+            }
+            else
+            {
+                return View("Dashboard", usuarioID);
+            }
+
+
+       
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(Usuario usr)
+        {
+
+
+
+            //var item = _context.Usuarios.FindAsync(usr.Dni);
+            var usuario = new UsuariosController(_context).GetUsuarioFromId(usr.Dni);
+
+            if (usuario != null && usuario.Dni == usr.Dni && usuario.Password == usr.Password)
+            {
+
+
+                HttpContext.Session.SetInt32("UsuarioID", usr.Dni);
+
+                var usuarioID = HttpContext.Session.GetInt32("UsuarioID");
+
+
+
+                return View("Dashboard", usuarioID);
+            }
+            else
+            {
+                HttpContext.Session.SetInt32("UsuarioID", 0);
+                usuario = new Usuario();
+                usuario.Dni = 0;
+                return View(usuario);
+            }
+
+
+
+            
+       
+        }
         public IActionResult Dashboard()
 
 
         {
-
-
-            // USUARIO DEFAULT
-            HttpContext.Session.SetInt32("UsuarioID", 11222333);
-
             var usuarioID = HttpContext.Session.GetInt32("UsuarioID");
 
-            return View(model: usuarioID);
+            if (usuarioID != 0)
+            {
+                return View(model: usuarioID);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+
+            // USUARIO DEFAULT
+            //HttpContext.Session.SetInt32("UsuarioID", 11222333);
+
+            //var usuarioID = HttpContext.Session.GetInt32("UsuarioID");
+
+            //return View(model: usuarioID);
         }
         public IActionResult Privacy()
         {
@@ -56,6 +120,13 @@ namespace RematadosWeb.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public ActionResult Salir()
+        {
+            HttpContext.Session.SetInt32("UsuarioID", 0);
+            return RedirectToAction(nameof(Index));
+        }
+
 
 
 

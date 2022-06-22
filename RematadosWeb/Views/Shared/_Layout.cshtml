@@ -1,4 +1,4 @@
-﻿@model Int32
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,50 +13,65 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" >
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/RematadosLogoLine.png" alt="Rematados" /> </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" >
-                    <ul class="navbar-nav flex-grow-1" id="navlinks" style="display:none">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Articulos" asp-action="Index">Articulos</a>
-                        </li>
+                @using Microsoft.AspNetCore.Http;
+                @if (@Context.Session.GetInt32("UsuarioID") == 0 || @Context.Session.GetInt32("UsuarioID") == null)
+                {
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" id="homelink"><img src="~/images/RematadosLogoLine.png" alt="Inicio" /> </a>
+              
+                }
+                else
+                {
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" id="homelink"><img src="~/images/RematadosLogoLine.png" alt="Inicio" /> </a>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Mensajes" asp-action="Index">Mensajes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ItemCarritos" asp-action="Index">ItemCarritos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Articulos" asp-action="CrearArticulo">Crear Articulo</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Articulos" asp-action="MisCompras">Mis Compras</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Articulos" asp-action="MisVentas">Mis Ventas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+
+                        <ul class="navbar-nav flex-grow-1" id="navlinks" style="display:flex">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Articulos" asp-action="Index">Articulos</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Mensajes" asp-action="Index">Mensajes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ItemCarritos" asp-action="Index">ItemCarritos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Articulos" asp-action="CrearArticulo">Crear Articulo</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Articulos" asp-action="MisCompras">Mis Compras</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Articulos" asp-action="MisVentas">Mis Ventas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Salir">Salir</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <form asp-controller="Articulos" name="formBusqueda" asp-action="Buscar" class="search" onsubmit="return validar()">
+                        <input type="text" id="Busqueda" name="Busqueda" class="search-box" placeholder="Busca un artículo (celular, auto,electrodoméstico)">
+                        <input type="submit" class="search-btn" value="Buscar">
+                        @*<button type="submit" class="search-btn">Buscar</button>*@
+                    </form>
+
+                }
+
             </div>
 
-            <form asp-controller="Articulos" name="formBusqueda" asp-action="Buscar" class="search" onsubmit="return validar()">
-                <input type="text" id="Busqueda" name="Busqueda" class="search-box" placeholder="Busca un artículo (celular, auto,electrodoméstico)">
-                <input type="submit" class="search-btn" value="Buscar">
-                @*<button type="submit" class="search-btn">Buscar</button>*@
-            </form>
+            
 
 
 
@@ -81,35 +96,41 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
      <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
      <script type="text/javascript">
-        window.onload = function ()
-        {
-            var usr = @Model;
-  
-            if (usr != 0)
-            {
-                var navlinks = document.getElementById("navlinks");
-                navlinks.style.display = 'flex';
-            }
+         window.onload = function ()
+         {
 
+            //var usuarioActual = sessionStorage.getItem("UsuarioActual");
+            // if (usuarioActual == null || usuarioActual == 0)
+            // {
+            //     var navlinks = document.getElementById("navlinks");
+            //     navlinks.style.display = 'none';
+//
 
+//             }
 
         }
 
+         function Salir() {
+
+             Context.Session.SetInt32("UsuarioID", 0);
+             //sessionStorage.setItem("UsuarioActual", 0);
+         }
 
 
-            function validar() {
 
-               var busqueda = document.forms["formBusqueda"]["Busqueda"].value;
-                if (busqueda == "") {
-                    document.formBusqueda.Busqueda.focus();
-                    alert("El campo no puede estar vacio");
-                    return false;
-                }
+         function validar() {
 
-                else {
-                    return true;
-                }
-            }
+             var busqueda = document.forms["formBusqueda"]["Busqueda"].value;
+             if (busqueda == "") {
+                 document.formBusqueda.Busqueda.focus();
+                 alert("El campo no puede estar vacio");
+                 return false;
+             }
+
+             else {
+                 return true;
+             }
+         }
 
 
 

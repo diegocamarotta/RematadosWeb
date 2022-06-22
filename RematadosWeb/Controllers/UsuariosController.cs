@@ -168,5 +168,25 @@ namespace RematadosWeb.Controllers
 
             return usuario;
         }
+
+
+        public IActionResult Registro()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Registro([Bind("Dni,Nombres,Apellidos,Email,Password")] Usuario usuario)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(usuario);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", "Home");
+            }
+            return View(usuario);
+        }
+
     }
 }

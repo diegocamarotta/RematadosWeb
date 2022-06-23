@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RematadosWeb.Migrations
 {
-    public partial class test : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -85,6 +85,7 @@ namespace RematadosWeb.Migrations
                     Id = table.Column<string>(nullable: false),
                     Texto = table.Column<string>(nullable: true),
                     ArticuloId = table.Column<string>(nullable: true),
+                    UsuarioDni = table.Column<int>(nullable: true),
                     Fechahora = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
@@ -95,6 +96,12 @@ namespace RematadosWeb.Migrations
                         column: x => x.ArticuloId,
                         principalTable: "Articulos",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Mensajes_Usuarios_UsuarioDni",
+                        column: x => x.UsuarioDni,
+                        principalTable: "Usuarios",
+                        principalColumn: "Dni",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -122,6 +129,11 @@ namespace RematadosWeb.Migrations
                 name: "IX_Mensajes_ArticuloId",
                 table: "Mensajes",
                 column: "ArticuloId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Mensajes_UsuarioDni",
+                table: "Mensajes",
+                column: "UsuarioDni");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

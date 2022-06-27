@@ -160,7 +160,7 @@ namespace RematadosWeb.Controllers
             dynamic conversacion = new ExpandoObject();
             var art = new ArticulosController(_context).GetArticuloFromId(id);
             conversacion.Articulo = art;
-            conversacion.Mensajes = (from mess in _context.Mensajes where mess.Articulo.Equals(art) orderby mess.Fechahora ascending select mess).ToList();
+            conversacion.Mensajes = (from mess in _context.Mensajes where mess.Articulo.Equals(art) orderby mess.Fechahora ascending select mess).Include(mess => mess.Usuario).ToList();
 
             return  View(model: conversacion);
         }

@@ -8,8 +8,8 @@
     <div class="text-center">
         <h1 class="display-4">Bienvenido, @Context.Session.GetInt32("UsuarioID")!</h1>
 
-        <form asp-controller="Articulos" asp-action="ListadoArticulos">
-            <input type="submit" value="Ir (boton temporal)" />
+        <form asp-controller="Articulos" asp-action="Index">
+            <input type="submit"  id="Dash" value="Ir (boton temporal)" hidden />
         </form>
 
         @*La idea es que con js se quede 2 seg en esta pantalla y luego pase a

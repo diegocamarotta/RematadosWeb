@@ -19,6 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="bd\TPFinalBD2_YA_21F-Kuitca,Kuitca,Mandelbaum.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.25" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.26" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />

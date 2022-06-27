@@ -30,15 +30,29 @@ namespace RematadosWeb.Controllers
         // GET: Articulos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Articulos.ToListAsync());
+            var usrActual = HttpContext.Session.GetInt32("UsuarioID");
+            var usr = new UsuariosController(_context).GetUsuarioFromId(usrActual.Value);
+
+            var articulos = await _context.Articulos.Where(articulos => articulos.Vendedor != usr && articulos.Estado == EstadoArticulo.EN_VENTA && articulos.Estado != EstadoArticulo.VENDIDO).ToListAsync();
+            //articulos = await _context.Articulos.Where(articulos => articulos.Vendedor.Dni == 1).ToListAsync();
+            //articulos = await _context.Articulos.Where(articulos => articulos.Vendedor != usr).ToListAsync();
+            //articulos = await _context.Articulos.Where(articulos => articulos.Estado != EstadoArticulo.VENDIDO).ToListAsync();
+            articulos = articulos.OrderBy(i => i.Categoria).ThenBy(i => i.Nombre).ToList();
+
+
+
+            return View(articulos);
         }
 
         public async Task<IActionResult> ListadoArticulos()
         {
+            var usrActual = HttpContext.Session.GetInt32("UsuarioID");
+            var usr = new UsuariosController(_context).GetUsuarioFromId(usrActual.Value);
 
             var articulos = await _context.Articulos.Where(articulos => articulos.Estado == EstadoArticulo.EN_VENTA).ToListAsync();
-           articulos = articulos.OrderBy(i => i.Categoria).ThenBy(i => i.Nombre).ToList();
-            
+            articulos = await _context.Articulos.Where(articulos => articulos.Vendedor != usr).ToListAsync();
+            articulos = articulos.OrderBy(i => i.Categoria).ThenBy(i => i.Nombre).ToList();
+
 
 
             return View(articulos);
@@ -59,19 +73,19 @@ namespace RematadosWeb.Controllers
             var articulos = await _context.Articulos.Where(articulos => articulos.Estado == EstadoArticulo.EN_VENTA).ToListAsync();
             articulos = articulos.OrderBy(i => i.Categoria).ThenBy(i => i.Nombre).ToList();
             return View(articulos);
-        
-            
+
+
         }
 
         [HttpPost, ActionName("Buscar")]
         [ValidateAntiForgeryToken]
-       
+
         public async Task<IActionResult> BuscarConfirmado(string id)
         {
             var input = Request.Form["Busqueda"];
 
-           
-         var articulos = await _context.Articulos.Where(articulos => articulos.Nombre.Contains(input)).ToListAsync();
+
+            var articulos = await _context.Articulos.Where(articulos => articulos.Nombre.Contains(input)).ToListAsync();
 
             articulos = articulos.OrderBy(i => i.Categoria).ThenBy(i => i.Nombre).ToList();
 
@@ -83,8 +97,8 @@ namespace RematadosWeb.Controllers
                 return RedirectToAction(nameof(ArticuloNoEncontrado));
             }
 
-            
-           
+
+
         }
 
         // GET: Articulos/Details/5
@@ -132,20 +146,20 @@ namespace RematadosWeb.Controllers
                 _context.Add(articulo);
                 articulo.Estado = EstadoArticulo.EN_VENTA;
                 await _context.SaveChangesAsync();
-               
+
                 if (articulo.Foto != null)
                 {
                     //var uniqueFileName = GetUniqueFileName(model.MyImage.FileName);
                     var uploads = Path.Combine(hostingEnvironment.ContentRootPath, "wwwroot/photos");
-                    var filePath = Path.Combine(uploads, articulo.Id+".jpg");
+                    var filePath = Path.Combine(uploads, articulo.Id + ".jpg");
                     articulo.Foto.CopyTo(new FileStream(filePath, FileMode.Create));
 
                     //to do : Save uniqueFileName  to your db table   
                 }
-              
+
 
                 return RedirectToAction(nameof(Index));
-                
+
             }
             return View(articulo);
         }
@@ -289,6 +303,35 @@ namespace RematadosWeb.Controllers
             return View(articulo);
         }
 
+        public async Task<IActionResult> Continuar(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var articulo = await _context.Articulos
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (articulo == null)
+            {
+                return NotFound();
+            }
+
+            return View(articulo);
+        }
+        [HttpPost, ActionName("Continuar")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ContinuarArticuloConfirmado(string id)
+        {
+            var articulo = await _context.Articulos.FindAsync(id);
+            _context.Update(articulo);
+            articulo.Estado = EstadoArticulo.EN_VENTA;
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+
+        }
+
         public async Task<IActionResult> AñadirAlCarrito(string id)
         {
             if (id == null)
@@ -318,7 +361,7 @@ namespace RematadosWeb.Controllers
 
             var cant = Request.Form["Cantidad"];
             if (cant == "") {
-                
+
                 return RedirectToAction(nameof(Index));
             }
             int cantInt = Int32.Parse(cant);
@@ -327,24 +370,24 @@ namespace RematadosWeb.Controllers
             {
                 var alCarrito = new ItemCarrito
                 {
-                Cantidad = cantInt,
-                Articulo = articulo
+                    Cantidad = cantInt,
+                    Articulo = articulo
                 };
                 _context.ItemCarritos.Add(alCarrito);
                 await _context.SaveChangesAsync();
 
             }
             return RedirectToAction(nameof(Index));
-           }
+        }
 
-  
+
 
 
 
         // POST: Articulos/Delete/5
         [HttpPost, ActionName("CancelarArticulo")]
         [ValidateAntiForgeryToken]
-       //public async Task<IActionResult> CancelarArticuloConfirmado(string id, [Bind("Id,Nombre,Descripcion,Precio,Estado,Categoria")] Articulo articulo)
+        //public async Task<IActionResult> CancelarArticuloConfirmado(string id, [Bind("Id,Nombre,Descripcion,Precio,Estado,Categoria")] Articulo articulo)
         public async Task<IActionResult> CancelarArticuloConfirmado(string id)
         {
             var articulo = await _context.Articulos.FindAsync(id);
@@ -353,24 +396,27 @@ namespace RematadosWeb.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
 
-  
+
         }
 
-        public async Task<IActionResult> MisVentas() 
-        { 
+        public async Task<IActionResult> MisVentas()
+        {
 
 
             var usuario = HttpContext.Session.GetInt32("UsuarioID");
             var misVentas = (from art in _context.Articulos where art.Vendedor.Dni.Equals(usuario) select art).ToList();
+          
             return View(model: misVentas);
         }
 
+      
         public async Task<IActionResult> MisCompras()
         {
 
 
             var usuario = HttpContext.Session.GetInt32("UsuarioID");
             var misCompras = (from art in _context.Articulos where art.Comprador.Dni.Equals(usuario) select art).ToList();
+            misCompras = (from art in _context.Articulos where art.Estado == EstadoArticulo.VENDIDO select art).ToList();
             return View(model: misCompras);
         }
 

@@ -8,8 +8,8 @@
     <div class="text-center">
         <h1 class="display-4">Bienvenido, @Html.DisplayFor(Model => Model)!</h1>
 
-        <form asp-controller="Articulos" asp-action="ListadoArticulos">
-            <input type="submit" value="Ir (boton temporal)" />
+        <form asp-controller="Articulos" asp-action="Index">
+            <input type="submit"  id="Dash" value="Ir (boton temporal)" hidden />
         </form>
 
         @*La idea es que con js se quede 2 seg en esta pantalla y luego pase a
@@ -18,12 +18,19 @@
 
     </div>
     <script type="text/javascript">
-        var usuarioActual = sessionStorage.getItem("UsuarioActual");
+        @*var usuarioActual = sessionStorage.getItem("UsuarioActual");
         if (usuarioActual == null || usuarioActual == 0)
         {
             sessionStorage.setItem("UsuarioActual", @Model);
 
-         }
+        }*@
+
+
+        setTimeout("CallButton()", 3000)
+        function CallButton() {
+            document.getElementById("Dash").click();
+        }
+
     </script>
 
 </body >

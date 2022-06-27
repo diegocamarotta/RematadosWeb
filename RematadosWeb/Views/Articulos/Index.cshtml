@@ -30,6 +30,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Categoria)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vendedor.Dni)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -55,17 +58,23 @@
                 @Html.DisplayFor(modelItem => item.Categoria)
             </td>
             <td>
-
-               
-            @using Microsoft.AspNetCore.Http;                @{ var vnd = item.Vendedor;
-                    var dni = vnd.Dni;
-                }                    @if (@Context.Session.GetInt32("UsuarioID") != dni)                    {                         <a asp-action="Comprar" asp-route-id="@item.Id">Comprar</a>                    }
+                @Html.DisplayFor(modelItem => item.Vendedor.Dni) @*COMO ACCEDEDER A UN ATRIBUTO DE UNA FK. MODIFICAMOS EL MODELO???*@
+            </td>
+            <td>
 
 
-                
+                @using Microsoft.AspNetCore.Http;
+
+                @*@if (@Context.Session.GetInt32("UsuarioID") != @item.Vendedor.Dni)
+            {*@
+                <a asp-action="Comprar" asp-route-id="@item.Id">Comprar</a>
+                @*}*@
+
+
+
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="CancelarArticulo" asp-route-id="@item.Id">Cancelar</a> |
+                @*//<a asp-action="CancelarArticulo" asp-route-id="@item.Id">Cancelar</a> |*@
                 <a asp-action="AñadirAlCarrito" asp-route-id="@item.Id">Añadir al carrito</a>
             </td>
         </tr>

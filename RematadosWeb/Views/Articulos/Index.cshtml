@@ -57,9 +57,16 @@
             <td>
 
                
-            @using Microsoft.AspNetCore.Http;                @{ var vnd = item.Vendedor;
+            @using Microsoft.AspNetCore.Http;
+                @{ var vnd = item.Vendedor;
                     var dni = vnd.Dni;
-                }                    @if (@Context.Session.GetInt32("UsuarioID") != dni)                    {                         <a asp-action="Comprar" asp-route-id="@item.Id">Comprar</a>                    }
+
+
+                }
+                    @if (@Context.Session.GetInt32("UsuarioID") != dni)
+                    {
+                         <a asp-action="Comprar" asp-route-id="@item.Id">Comprar</a>
+                    }
 
 
                 

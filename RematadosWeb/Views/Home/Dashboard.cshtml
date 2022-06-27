@@ -1,12 +1,12 @@
-﻿@model Int32
+﻿
 @{
     ViewData["Title"] = "Mi pagina principal";
 }
-
+@using Microsoft.AspNetCore.Http;
 <html>
 <body>
     <div class="text-center">
-        <h1 class="display-4">Bienvenido, @Html.DisplayFor(Model => Model)!</h1>
+        <h1 class="display-4">Bienvenido, @Context.Session.GetInt32("UsuarioID")!</h1>
 
         <form asp-controller="Articulos" asp-action="ListadoArticulos">
             <input type="submit" value="Ir (boton temporal)" />
@@ -17,19 +17,11 @@
 
 
     </div>
-    <script type="text/javascript">
-        var usuarioActual = sessionStorage.getItem("UsuarioActual");
-        if (usuarioActual == null || usuarioActual == 0)
-        {
-            sessionStorage.setItem("UsuarioActual", @Model);
 
-         }
-    </script>
 
-</body >
+</body>
 
 
 
-
-</html >
+</html>
 

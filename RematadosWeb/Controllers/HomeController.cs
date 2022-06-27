@@ -96,19 +96,15 @@ namespace RematadosWeb.Controllers
 
             if (usuarioID != 0)
             {
-                return View(model: usuarioID);
+   
+                return View();
             }
             else
             {
                 return RedirectToAction("Index");
             }
 
-            // USUARIO DEFAULT
-            //HttpContext.Session.SetInt32("UsuarioID", 11222333);
 
-            //var usuarioID = HttpContext.Session.GetInt32("UsuarioID");
-
-            //return View(model: usuarioID);
         }
         public IActionResult Privacy()
         {

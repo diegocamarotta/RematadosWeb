@@ -70,3 +70,8 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+    /*modificamos click por defecto de Bootstrap*/
+}

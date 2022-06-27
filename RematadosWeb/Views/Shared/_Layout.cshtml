@@ -17,7 +17,7 @@
                 @if (@Context.Session.GetInt32("UsuarioID") == 0 || @Context.Session.GetInt32("UsuarioID") == null)
                 {
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" id="homelink"><img src="~/images/RematadosLogoLine.png" alt="Inicio" /> </a>
-              
+
                 }
                 else
                 {
@@ -58,7 +58,18 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Salir">Salir</a>
                             </li>
+                            <li>
+                                <div class="dropdown">
+                                    <a class="dropdown" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><img src="~/images/user.png" alt="perfil usuario"></a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" asp-area="" asp-controller="Usuarios" asp-action="MiPerfil">Mi perfil</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Usuarios" asp-action="Seguridad">Seguridad</a>
+                                    </div>
+                                </div>
+                            </li>
+
                         </ul>
+                        
                     </div>
 
                     <form asp-controller="Articulos" name="formBusqueda" asp-action="Buscar" class="search" onsubmit="return validar()">

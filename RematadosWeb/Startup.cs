@@ -32,6 +32,9 @@ namespace RematadosWeb
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddDbContext<RematadosDatabaseContext>(options => options.UseSqlServer(Configuration["ConnectionString:RematadosWebDBConnection"]));
             services.AddSession();
+            //services.AddSession(options => {
+            //    options.IdleTimeout = TimeSpan.FromMinutes(20); // Tiempo de expiración   
+            //});
             services.AddMvc();
             //services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddControllers().AddNewtonsoftJson(options => 

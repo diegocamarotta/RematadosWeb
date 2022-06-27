@@ -14,6 +14,8 @@
   <ItemGroup>
     <Content Remove="Views\Articulos\Index1.cshtml" />
     <Content Remove="Views\Articulos\Index2.cshtml" />
+    <Content Remove="Views\Usuarios\Index1.cshtml" />
+    <Content Remove="Views\Usuarios\Index2.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,5 +29,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

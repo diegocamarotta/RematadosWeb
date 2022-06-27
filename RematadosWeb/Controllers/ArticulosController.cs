@@ -150,6 +150,41 @@ namespace RematadosWeb.Controllers
             return View(articulo);
         }
 
+        public async Task<IActionResult> Comprar(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var articulo = await _context.Articulos
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (articulo == null)
+            {
+                return NotFound();
+            }
+
+            return View(articulo);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ComprarArticulo(string id)
+        {
+            var usrActual = HttpContext.Session.GetInt32("UsuarioID");
+            var usr = new UsuariosController(_context).GetUsuarioFromId(usrActual.Value);
+
+            var articulo = await _context.Articulos.FindAsync(id);
+
+            articulo.Comprador = usr;
+            articulo.Estado = EstadoArticulo.VENDIDO;
+
+            _context.Update(articulo);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+        }
+
         // GET: Articulos/Edit/5
         public async Task<IActionResult> Edit(string id)
         {

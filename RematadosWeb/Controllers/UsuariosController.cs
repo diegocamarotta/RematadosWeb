@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RematadosWeb.Context;
@@ -152,14 +154,16 @@ namespace RematadosWeb.Controllers
         }
 
 
-        public IActionResult DNIExists(int? Dni){
+        public IActionResult DNIExists(int? Dni)
+        {
 
-               
-            if (UsuarioExists(Dni)) {
-                 return Json(false);
-           }
-            
-            return  Json(true);
+
+            if (UsuarioExists(Dni))
+            {
+                return Json(false);
+            }
+
+            return Json(true);
         }
 
         public Usuario GetUsuarioFromId(int id)
@@ -188,5 +192,109 @@ namespace RematadosWeb.Controllers
             return View(usuario);
         }
 
+        public async Task<IActionResult> MiPerfil(int? id)
+
+        {
+
+            var usuarioID = HttpContext.Session.GetInt32("UsuarioID");
+
+            if (usuarioID == null)
+            {
+                return NotFound();
+            }
+
+            var usuario = await _context.Usuarios.FindAsync(usuarioID);
+
+            return View(usuario);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Editar(int id, [Bind("Dni,Nombres,Apellidos,Email,Password")] Usuario usuario)
+        {
+            //if (id != usuario.Dni)
+            //{
+            //    return NotFound();
+            //}
+
+            //if (ModelState.IsValid)
+            //{
+            //    //try
+            //{
+
+            //usuario.Password = GetUsuarioFromId(usuario.Dni).Password;
+
+            _context.Update(usuario);
+            await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!UsuarioExists(usuario.Dni))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
+
+            return RedirectToAction(nameof(MiPerfil));
+
+        }
+        //return View(usuario);
+        // return RedirectToAction(nameof(MiPerfil));
+
+
+        public async Task<IActionResult> Seguridad(int? id)
+
+        {
+
+            var usuarioID = HttpContext.Session.GetInt32("UsuarioID");
+
+            if (usuarioID == null)
+            {
+                return NotFound();
+            }
+
+            var usuario = await _context.Usuarios.FindAsync(usuarioID);
+
+            return View(usuario);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CambiarContraseña(int id, [Bind("Dni,Nombres,Apellidos,Email,Password")] Usuario usuario)
+        {
+
+            _context.Update(usuario);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+
+
+            //    //var viejaPwd = Request.Form["viejaPWD"];
+            //    //var actualPwd = usuario.Password;
+            //    var nuevaPwd = Request.Form["nuevaPWD"];
+
+            //    if (!nuevaPwd.Equals(usuario.Password))
+            //    {
+            //        usuario.Password = nuevaPwd;
+            //        _context.Update(usuario);
+            //        await _context.SaveChangesAsync();
+
+            //    }
+
+            //return RedirectToAction(nameof(Index));
+
+
+
+        }
+
     }
 }
+
+
+
+
+    

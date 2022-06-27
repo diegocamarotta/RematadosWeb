@@ -9,9 +9,9 @@
     {
         if (input.files[0])
         {
-            var uploadimg = new FileReader();
-            uploadimg.onload = function(displayimg) {
-      $("#ImgPreview").attr('src', displayimg.target.result);
+            var uploadimg = new FileReader(); //reader
+            uploadimg.onload = function(displayimg) { 
+                $("#ImgPreview").attr('src', displayimg.target.result);// contenido
             }
             uploadimg.readAsDataURL(input.files[0]);
         }
@@ -49,7 +49,7 @@
                 <label asp-for="Categoria" class="control-label"></label>
                 <select asp-for="Categoria" class="form-control" asp-items="Html.GetEnumSelectList<Categoria>()"></select>
                 <span asp-validation-for="Categoria" class="text-danger"></span>
-                
+            </div>    
             <div class="form-group">
                     <label asp-for="Foto" class="control-label"></label>
                     <input asp-for="Foto" class="form-control" accept="image/jpeg" >

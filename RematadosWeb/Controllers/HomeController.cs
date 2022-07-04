@@ -45,7 +45,7 @@ namespace RematadosWeb.Controllers
             }
             else
             {
-                return View("Dashboard", usuarioID);
+                return View("Index");
             }
 
 

@@ -102,8 +102,8 @@
 
     @*<span>Categoria: @cat.ToString()</span>*@
     <h2 class="product-category"> @cat.ToString()</h2>
-    <div id=@cat.ToString() class="carousel" data-bs-ride="carousel">
-        <div class="carousel-inner">
+    <div  class="carousel" data-bs-ride="carousel">
+        <div id="@cat.ToString()-inner" class="carousel-inner">
 
 
 
@@ -183,11 +183,11 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>*@
-        <a class="carousel-control-prev" href="#@cat.ToString()" role="button" data-slide="prev">
+        <a id="@cat.ToString()-prev" class="carousel-control-prev" href="#@cat.ToString()" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
         </a>
-        <a class="carousel-control-next" href="#@cat.ToString()" role="button" data-slide="next">
+        <a id="@cat.ToString()-next" class="carousel-control-next" href="#@cat.ToString()" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
@@ -201,23 +201,25 @@
 
 
 
-             var carouselWidth = $(".carousel-inner")[0].scrollWidth;
-             var cardWidth = $(".carousel-item").width();
-        var scrollPosition = 0;
-        $(@cat.ToString()).on("click", function () {
-            if (scrollPosition < (carouselWidth - cardWidth * 4)) {
-                scrollPosition += cardWidth;
-                $(".carousel-inner").animate(
-                    { scrollLeft: scrollPosition },
+        window["@cat.ToString()carouselWidth"]  = $(".carousel-inner")[0].scrollWidth;
+        window["@cat.ToString()cardWidth"] = $(".carousel-item").width();
+        window["@cat.ToString()scrollPosition"]  = 0;
+
+        $("#@cat.ToString()-next").on("click", function () {
+            if (window["@cat.ToString()scrollPosition"] < (window["@cat.ToString()carouselWidth"] - window["@cat.ToString()cardWidth"] * 4)) {
+                window["@cat.ToString()scrollPosition"] += window["@cat.ToString()cardWidth"];
+                $("#@cat.ToString()-inner").animate(
+                    { scrollLeft: window["@cat.ToString()scrollPosition"] },
                     600
                 );
             }
         });
-        $(@cat.ToString()).on("click", function () {
-            if (scrollPosition > 0) {
-                scrollPosition -= cardWidth;
-                $(".carousel-inner").animate(
-                    { scrollLeft: scrollPosition },
+
+        $("#@cat.ToString()-prev").on("click", function () {
+            if (window["@cat.ToString()scrollPosition"] > 0) {
+                window["@cat.ToString()scrollPosition"] -= window["@cat.ToString()cardWidth"];
+                $("#@cat.ToString()-inner").animate(
+                    { scrollLeft: window["@cat.ToString()scrollPosition"] },
                     600
                 );
             }

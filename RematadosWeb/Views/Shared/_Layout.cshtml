@@ -21,7 +21,7 @@
                 }
                 else
                 {
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" id="homelink"><img src="~/images/RematadosLogoLine.png" alt="Inicio" /> </a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Articulos" asp-action="Index" id="homelink"><img src="~/images/RematadosLogoLine.png" alt="Inicio" /> </a>
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -30,19 +30,20 @@
                     <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
 
                         <ul class="navbar-nav flex-grow-1" id="navlinks" style="display:flex">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Articulos" asp-action="Index">Articulos</a>
-                            </li>
+                            @*<li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Articulos" asp-action="Index">Articulos</a>
+        </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Mensajes" asp-action="Index">Mensajes</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="ItemCarritos" asp-action="Index">ItemCarritos</a>
-                            </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Mensajes" asp-action="Index">Mensajes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="ItemCarritos" asp-action="Index">ItemCarritos</a>
+        </li>
+                            *@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Articulos" asp-action="CrearArticulo">Crear Articulo</a>
                             </li>
@@ -52,9 +53,11 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Articulos" asp-action="MisVentas">Mis Ventas</a>
                             </li>
+
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ItemCarritos" asp-action="Index">Mi Carrito de Compras</a>
                             </li>
+
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Salir">Salir</a>
                             </li>
@@ -99,7 +102,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - RematadosWeb - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - RematadosWeb 
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -21,13 +22,22 @@ namespace RematadosWeb.Controllers
 
         // GET: ItemCarritos
         public async Task<IActionResult> Index()
+
         {
-            return View(await _context.ItemCarritos.ToListAsync());
+
+            var usrActual = HttpContext.Session.GetInt32("UsuarioID");
+
+
+            var misItems = (from items in _context.ItemCarritos where items.Usuario.Dni.Equals(usrActual) select items).Include(items => items.Articulo).ToList();
+
+            return View(model: misItems);
         }
 
         // GET: ItemCarritos/Details/5
         public async Task<IActionResult> Details(string id)
         {
+
+
             if (id == null)
             {
                 return NotFound();

@@ -15,7 +15,19 @@
         @*La idea es que con js se quede 2 seg en esta pantalla y luego pase a
             la otra view, es algo temporal para probar funcionalidad*@
 
+        @{
+                <script type="text/javascript">
 
+                    function Redirect() {
+                         window.location="@Url.Action("Index","Articulos")";
+                    }
+                    document.write("Seras redirigido a una nueva pagina en 3 segundos...");
+                    setTimeout('Redirect()', 3000);
+
+
+
+                </script>
+        }
     </div>
 
 

@@ -154,17 +154,19 @@
                 {
                     <div class="carousel-item">
                         <div class="card">
-                            <div class="img-wrapper">
-                                <img src="@Url.Content(String.Format("~/photos/" + i.Id + ".jpg"))" class="d-block w-100" onerror="this.src='/photos/sinimagen.jpg';" alt="...">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">@Html.DisplayFor(modelItem => i.Nombre)</h5>
-                                <h5 class="card-title precio">@Html.DisplayFor(modelItem => i.Precio)</h5>
-                                <p class="card-text">
-                                    @Html.DisplayFor(modelItem => i.Descripcion)
-                                </p>
-                                <a asp-action="AñadirAlCarrito" class="btn btn-primary" asp-route-id="@i.Id">Añadir al carrito</a>
-                            </div>
+                            @*<a href="@Url.Action("AñadirAlCarrito", "Articulos")", new { id = "@i.Id" }>*@
+                                <div class="img-wrapper">
+                                    <img src="@Url.Content(String.Format("~/photos/" + i.Id + ".jpg"))" class="d-block w-100" onerror="this.src='/photos/sinimagen.jpg';" alt="...">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">@Html.DisplayFor(modelItem => i.Nombre)</h5>
+                                    <h5 class="card-title precio">@Html.DisplayFor(modelItem => i.Precio)</h5>
+                                    <p class="card-text">
+                                        @Html.DisplayFor(modelItem => i.Descripcion)
+                                    </p>
+                                    <a asp-action="AñadirAlCarrito" asp-route-id="@i.Id"><i class="glyphicon glyphicon-credit-card"></i>Añadir al carrito</a>
+                                </div>
+                                
                         </div>
                     </div>
 

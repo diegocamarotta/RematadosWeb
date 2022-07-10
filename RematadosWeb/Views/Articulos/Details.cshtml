@@ -1,10 +1,10 @@
 ﻿@model RematadosWeb.Models.Articulo
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles";
 }
 
-<h1>Details</h1>
+<h1>Detalles</h1>
 
 <div>
     <h4>Articulo</h4>
@@ -43,6 +43,10 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    @using Microsoft.AspNetCore.Http;
+    @if (@Context.Session.GetInt32("UsuarioID") == Model.Vendedor.Dni && Model.Estado != EstadoArticulo.VENDIDO)
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
+    } |  @Html.ActionLink("Volver", null, null, null, new { href = @Context.Request.Headers["Referer"] })
+
 </div>

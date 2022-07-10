@@ -159,5 +159,30 @@ namespace RematadosWeb.Controllers
         {
             return _context.ItemCarritos.Any(e => e.Id == id);
         }
+
+        public async Task<IActionResult> ComprarTodo()
+        {
+            var usrActual = HttpContext.Session.GetInt32("UsuarioID");
+            var usr = new UsuariosController(_context).GetUsuarioFromId(usrActual.Value);
+
+            var misItems = (from items in _context.ItemCarritos where items.Usuario.Dni.Equals(usrActual) select items).Include(items => items.Articulo).ToList();
+
+            var artController = new ArticulosController(_context);
+
+            foreach (var item in misItems) {
+                var esteArticulo = artController.GetArticuloFromId(item.Articulo.Id);
+
+                esteArticulo.Comprador = usr;
+                esteArticulo.Estado = EstadoArticulo.VENDIDO;
+                _context.Update(esteArticulo);
+                _context.Remove(item);
+                await _context.SaveChangesAsync();
+
+
+            }
+
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

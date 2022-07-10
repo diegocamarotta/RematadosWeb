@@ -5,11 +5,9 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Mensajes</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 
 Conversacion para la compra de:<span STYLE="font-weight:bold">@Model.Articulo.Nombre</span>
 
@@ -34,6 +32,6 @@ Conversacion para la compra de:<span STYLE="font-weight:bold">@Model.Articulo.No
     <label for="text">Nuevo mensaje:</label><br>
     <input type="text" id="Texto" name="Texto" placeholder="escribe tu mensaje aqui..."><br>
     <input type="hidden" name="ArticuloId" value="@Model.Articulo.Id" />
-    <input type="submit" value="Submit">
+    <input type="submit" value="Enviar">
 
 </form>

@@ -20,9 +20,51 @@
 }
 <h1> Crear Articulo Nuevo</h1>
 
-<h4>Ingrese los datos</h4>
+
 <hr />
-<div class="row">
+
+<body class="registro">
+
+
+    <div class="container">
+        <form class="form-horizontal" role="form" asp-action="Create" enctype="multipart/form-data">
+            <h4>Ingrese los datos</h4>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Nombre" class="col-sm-3 control-label"></label>
+                <input asp-for="Nombre" class="form-control" autofocus />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Descripcion" class="col-sm-3 control-label"></label>
+                <input asp-for="Descripcion" class="form-control" />
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Precio" class="col-sm-3 control-label"></label>
+                <input asp-for="Precio" class="form-control" />
+                <span asp-validation-for="Precio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Categoria" class="col-sm-3 control-label"></label>
+                <select asp-for="Categoria" class="form-control" asp-items="Html.GetEnumSelectList<Categoria>()"></select>
+                <span asp-validation-for="Categoria" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Foto" class="col-sm-3 control-label"></label>
+                <input asp-for="Foto" class="form-control" accept="image/jpeg">
+            </div>
+
+            <div class="form-group">
+                <br />
+                 <button type="submit" class="btn btn-primary btn-block normal">Crear</button>
+            </div>
+        </form>
+    </div> 
+  
+
+</body>
+@*<div class="row">
     <div class="col-md-4">
 
 
@@ -57,15 +99,15 @@
                     
                 </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Crear" class="btn btn-primary normal" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <a asp-action="Index" class="btn btn-primary normal">Volver</a>
+</div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

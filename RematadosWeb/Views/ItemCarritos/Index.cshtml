@@ -6,14 +6,11 @@
 
 <h1>Mi Carrito de compras</h1>
 
-@if (Model.Count() > 0)
+@if (@Model.Count() > 0)
 {
     <table class="table">
         <thead>
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Cantidad)
-                </th>
                 <th>
                     Imagen
                 </th>
@@ -23,26 +20,31 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Cantidad)
-                    </td>
-                    <td>
-                        <img src="@Url.Content(String.Format("~/photos/" + item.Id + ".jpg"))" onerror="this.src='/photos/sinimagen.jpg';" style="max-width:150px">
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Articulo.Nombre)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Editar Cantidad</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
+
+                @foreach (var item in Model)
+                {
+
+
+
+                    <tr>
+                        <td>
+                            <img src="@Url.Content(String.Format("~/photos/" + item.Id + ".jpg"))" onerror="this.src='/photos/sinimagen.jpg';" style="max-width:150px">
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Articulo.Nombre)
+                        </td>
+                        <td>
+
+                           
+                            <a asp-action="ConfirmarCompra" asp-route-id="@item.">Continuar Compra</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
     </table>
+    <a asp-action="ConfirmarCompra"> Continuar Compra</a>
+
 }
 else
 {

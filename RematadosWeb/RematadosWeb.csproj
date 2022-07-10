@@ -1,13 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Shared\EditorTemplates\**" />
     <Compile Remove="wwwroot\css\NewFolder\**" />
+    <Content Remove="Views\Shared\EditorTemplates\**" />
     <Content Remove="wwwroot\css\NewFolder\**" />
+    <EmbeddedResource Remove="Views\Shared\EditorTemplates\**" />
     <EmbeddedResource Remove="wwwroot\css\NewFolder\**" />
+    <None Remove="Views\Shared\EditorTemplates\**" />
     <None Remove="wwwroot\css\NewFolder\**" />
   </ItemGroup>
 
@@ -16,6 +20,7 @@
     <Content Remove="Views\Articulos\Index2.cshtml" />
     <Content Remove="Views\Usuarios\Index1.cshtml" />
     <Content Remove="Views\Usuarios\Index2.cshtml" />
+    <Content Remove="wwwroot\css\compra.css" />
   </ItemGroup>
 
   <ItemGroup>

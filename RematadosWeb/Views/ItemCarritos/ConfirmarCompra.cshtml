@@ -1,0 +1,50 @@
+﻿@model List<RematadosWeb.Models.ItemCarrito>
+
+@{
+    ViewData["Title"] = "Confirmar compra";
+}
+
+<h1>Confirma la compra para los siguientes artículos?</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Cantidad)
+                </th>*@
+            <th>
+                Imagen
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Articulo.Nombre)
+                </th>*@
+        </tr>
+    </thead>
+    <tbody>
+        >
+
+
+    </tbody>
+</table>
+
+
+
+<form asp-action="ConfirmarCompra" id="mainform" method="POST">
+    @for (var i = 0; i < Model.Count(); i++)
+    {
+
+        <input asp-for="@Model[i].Id" type="hidden" />
+        <input asp-for="@Model[i].Usuario" type="hidden" />
+        <input asp-for="@Model[i].Cantidad" type="hidden" />
+        <input asp-for="@Model[i].Articulo" type="hidden" />
+        <input asp-for="@Model[i].Articulo.Id" type="hidden" />
+
+        <br />
+    }
+    <input type="submit" class="btn btn-primary" value="Submit">
+</form>
+<a asp-action="ConfirmarCompra">Confirmar</a>
+
+
+

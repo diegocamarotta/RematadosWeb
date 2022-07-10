@@ -4,11 +4,12 @@
     ViewData["Title"] = "Comprar Articulo";
 }
 
+
+
 <h1>Comprar artículo</h1>
 
 <h3>Esta por comprar el siguiente artículo</h3>
 <div>
-    <h4>Articulo</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -43,9 +44,41 @@
         </dd>
     </dl>
 
-    <form asp-action="ComprarArticulo">
+    <form asp-action="ComprarArticulo" id="form">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Comprar" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Comprar" class="btn normal compra" id="input"/>
+        <a asp-action="Index" class="btn normal" >Volver al inicio</a>
     </form>
 </div>
+
+
+@*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>*@
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    const compras = document.querySelectorAll('.compra');
+
+    // Crear función para mostrar alerta
+    function comprar(e) {
+
+        /*e.preventDefault();*/
+        Swal.fire({
+            title: 'Compraste exitosamente @Model.Nombre!',
+            text: 'Volviendo al menú...',
+            icon: 'success',
+            showConfirmButton: false
+             //It does close the popup when I click on close button
+            // Encadena la promesa para saber lo que pasó en la ventana modal
+        }).then((result) => {
+            if (result) { // if confirm clicked....
+               /* $('#input').submit(); // submit form*/
+            }
+        })
+
+    }
+
+    compras.forEach(btn => btn.addEventListener('click', comprar));
+
+
+</script>

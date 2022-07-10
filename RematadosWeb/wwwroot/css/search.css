@@ -36,24 +36,6 @@
 }
 
 
-.normal-btn {
-    width: 20%;
-    height: 40px;
-    padding: 10px 30px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    background-color: #383838;
-    color: #fff;
-    font-size: 15px;
-    border-radius: 10px
-}
-
-   .normal-btn:hover {
-        background: #201c1c;
-        color:#fff;
-        text-decoration:none;
-    }
 
     .search-btn:hover{
         background-color: #201c1c;

@@ -4,44 +4,93 @@
     ViewData["Title"] = "Registro";
 }
 
-<h4>Ingresa tus datos</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Registro">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Dni" class="control-label"></label>
-                <input asp-for="Dni" class="form-control" />
-                <span asp-validation-for="Dni" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Nombres" class="control-label"></label>
-                <input asp-for="Nombres" class="form-control" />
-                <span asp-validation-for="Nombres" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Apellidos" class="control-label"></label>
-                <input asp-for="Apellidos" class="form-control" />
-                <span asp-validation-for="Apellidos" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
 
+
+<body class="registro">
+
+    <h4>Ingresa tus datos</h4>
+    <hr />
+
+    <div class="container">
+        <form class="form-horizontal" role="form" asp-action="Registro">
+            <h2>Registrate</h2>
+            <div class="form-group">
+                <label asp-for="Dni" class="col-sm-3 control-label">DNI</label>
+                <div class="col-sm-9">
+                    <input asp-for="Dni" id="dni" placeholder="38468269" class="form-control" autofocus>
+                    <span asp-validation-for="Dni" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nombres" class="col-sm-3 control-label">Nombre</label>
+                <div class="col-sm-9">
+                    <input asp-for="Nombres" id="nombres" placeholder="José" class="form-control" autofocus>
+                     <span asp-validation-for="Nombres" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Apellidos" class="col-sm-3 control-label">Apellido</label>
+                <div class="col-sm-9">
+                    <input asp-for="Apellidos" id="apellidos" placeholder="Perez" class="form-control" autofocus>
+                    <span asp-validation-for="Apellidos" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="col-sm-3 control-label">Email</label>
+                <div class="col-sm-9">
+                    <input asp-for="Email" id="email" placeholder="joseperez@gmail.com" class="form-control" autofocus>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="col-sm-3 control-label">Contraseña</label>
+                <div class="col-sm-9">
+                    <input asp-for="Password" id="password" placeholder="Contraseña" class="form-control" autofocus>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block normal">Registrarse</button>
+        </form> <!-- /form -->
+    </div> <!-- ./container -->
+    @*<div class="row justify-content-center">
+
+            <div class="col-md-4">
+                <form asp-action="Registro">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Dni" class="control-label"></label>
+                        <input asp-for="Dni" class="form-control" />
+                        <span asp-validation-for="Dni" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Nombres" class="control-label"></label>
+                        <input asp-for="Nombres" class="form-control" />
+                        <span asp-validation-for="Nombres" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Apellidos" class="control-label"></label>
+                        <input asp-for="Apellidos" class="form-control" />
+                        <span asp-validation-for="Apellidos" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label"></label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>*@
+
+</body>
 
 
 @section Scripts {

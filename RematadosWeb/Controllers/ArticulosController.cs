@@ -12,6 +12,7 @@ using RematadosWeb.Context;
 using RematadosWeb.Models;
 using Microsoft.Extensions.Hosting;
 using System.IO;
+using System.Threading;
 
 namespace RematadosWeb.Controllers
 {
@@ -93,7 +94,8 @@ namespace RematadosWeb.Controllers
             {
                 return View(articulos);
             }
-            else {
+            else
+            {
                 return RedirectToAction(nameof(ArticuloNoEncontrado));
             }
 
@@ -118,6 +120,24 @@ namespace RematadosWeb.Controllers
 
             return View(articulo);
         }
+
+        public async Task<IActionResult> Articulo(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var articulo = await _context.Articulos
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (articulo == null)
+            {
+                return NotFound();
+            }
+
+            return View(articulo);
+        }
+
 
         // GET: Articulos/Create
         public IActionResult Create()
@@ -195,7 +215,9 @@ namespace RematadosWeb.Controllers
 
             _context.Update(articulo);
             await _context.SaveChangesAsync();
+            Thread.Sleep(3000);
             return RedirectToAction(nameof(Index));
+            ////return View("Index");
 
         }
 
@@ -354,24 +376,29 @@ namespace RematadosWeb.Controllers
         //public async Task<IActionResult> CancelarArticuloConfirmado(string id, [Bind("Id,Nombre,Descripcion,Precio,Estado,Categoria")] Articulo articulo)
         public async Task<IActionResult> AñadirAlCarritoConfirmado(string id)
         {
+
+            var usrActual = HttpContext.Session.GetInt32("UsuarioID");
+            var usr = new UsuariosController(_context).GetUsuarioFromId(usrActual.Value);
+
             var articulo = await _context.Articulos.FindAsync(id);
             // _context.Update(articulo);
             var itemCarrito = await _context.ItemCarritos
                 .FirstOrDefaultAsync(m => m.Articulo == articulo);
 
-            var cant = Request.Form["Cantidad"];
-            if (cant == "") {
+            //var cant = Request.Form["Cantidad"];
+            //if (cant == "") {
 
-                return RedirectToAction(nameof(Index));
-            }
-            int cantInt = Int32.Parse(cant);
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //int cantInt = Int32.Parse(cant);
 
             if (itemCarrito == null)
             {
                 var alCarrito = new ItemCarrito
                 {
-                    Cantidad = cantInt,
-                    Articulo = articulo
+                    Cantidad = 1,
+                    Articulo = articulo,
+                    Usuario = usr
                 };
                 _context.ItemCarritos.Add(alCarrito);
                 await _context.SaveChangesAsync();
@@ -405,11 +432,11 @@ namespace RematadosWeb.Controllers
 
             var usuario = HttpContext.Session.GetInt32("UsuarioID");
             var misVentas = (from art in _context.Articulos where art.Vendedor.Dni.Equals(usuario) select art).ToList();
-          
+
             return View(model: misVentas);
         }
 
-      
+
         public async Task<IActionResult> MisCompras()
         {
 
@@ -420,11 +447,11 @@ namespace RematadosWeb.Controllers
             return View(model: misCompras);
         }
 
-        public Articulo GetArticuloFromId(String id) 
+        public Articulo GetArticuloFromId(String id)
         {
             var articulo = _context.Articulos.Find(id);
-     
-            
+
+
             return articulo;
         }
     }

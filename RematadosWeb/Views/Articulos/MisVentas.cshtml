@@ -57,24 +57,22 @@
                 @using Microsoft.AspNetCore.Http;
                 @if (@Context.Session.GetInt32("UsuarioID") == item.Vendedor.Dni && item.Estado != EstadoArticulo.VENDIDO)
                 {
-                    <a asp-action="Edit" asp-route-id="@item.Id" >Editar</a>
-                    @Html.Raw(" | ")
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn normal">Editar</a>
 
                 }
 
-                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn normal">Detalles</a> 
                 @using Microsoft.AspNetCore.Http;
                 @if (@Context.Session.GetInt32("UsuarioID") == item.Vendedor.Dni && item.Estado != EstadoArticulo.VENDIDO)
                 {
-                    <a asp-action="CancelarArticulo" asp-route-id="@item.Id">Cancelar</a>
-                    @Html.Raw(" | ")
+                    <a asp-action="CancelarArticulo" asp-route-id="@item.Id" class="btn normal">Cancelar</a>
 
                 }
 
 
                 @if (item.Estado == EstadoArticulo.VENDIDO)
                 {
-                    <a asp-controller="Mensajes" asp-action="MensajesOperacion" asp-route-id="@item.Id">Mensajes</a>
+                    <a asp-controller="Mensajes" asp-action="MensajesOperacion" asp-route-id="@item.Id" class="btn normal">Mensajes</a>
       
 
                 }

@@ -21,29 +21,30 @@
         </thead>
         <tbody>
 
-                @foreach (var item in Model)
-                {
+            @foreach (var item in Model)
+            {
 
 
 
-                    <tr>
-                        <td>
-                            <img src="@Url.Content(String.Format("~/photos/" + item.Id + ".jpg"))" onerror="this.src='/photos/sinimagen.jpg';" style="max-width:150px">
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Articulo.Nombre)
-                        </td>
-                        <td>
+                <tr>
+                    <td>
+                        <img src="@Url.Content(String.Format("~/photos/" + item.Id + ".jpg"))" onerror="this.src='/photos/sinimagen.jpg';" style="max-width:150px">
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Articulo.Nombre)
+                    </td>
+                    <td>
 
-                           
-                            <a asp-action="ConfirmarCompra" asp-route-id="@item.">Continuar Compra</a>
-                            <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
+
+                        <a asp-action="ConfirmarCompra" asp-route-id="@item." class="btn normal" >Continuar Compra</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn normal" >Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
     </table>
-    <a asp-action="ConfirmarCompra"> Continuar Compra</a>
+    <a asp-action="ComprarTodo"> Comprar Todo</a> @Html.Raw(" | ")
+    <a asp-action="VaciarCarrito"> Vaciar Carrito</a>
 
 }
 else

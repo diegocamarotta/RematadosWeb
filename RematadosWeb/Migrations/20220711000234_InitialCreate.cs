@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RematadosWeb.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,8 +27,8 @@ namespace RematadosWeb.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    Nombre = table.Column<string>(nullable: true),
-                    Descripcion = table.Column<string>(nullable: true),
+                    Nombre = table.Column<string>(nullable: false),
+                    Descripcion = table.Column<string>(nullable: false),
                     Precio = table.Column<double>(nullable: false),
                     VendedorDni = table.Column<int>(nullable: true),
                     CompradorDni = table.Column<int>(nullable: true),

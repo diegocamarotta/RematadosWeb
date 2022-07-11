@@ -10,8 +10,8 @@ using RematadosWeb.Context;
 namespace RematadosWeb.Migrations
 {
     [DbContext(typeof(RematadosDatabaseContext))]
-    [Migration("20220620234419_Initial")]
-    partial class Initial
+    [Migration("20220711000234_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,12 +34,14 @@ namespace RematadosWeb.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Descripcion")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Estado")
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Precio")

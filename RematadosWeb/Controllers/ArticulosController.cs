@@ -111,7 +111,7 @@ namespace RematadosWeb.Controllers
                 return NotFound();
             }
 
-            var articulo = await _context.Articulos
+            var articulo = await _context.Articulos.Include(m => m.Vendedor)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (articulo == null)
             {
@@ -128,7 +128,7 @@ namespace RematadosWeb.Controllers
                 return NotFound();
             }
 
-            var articulo = await _context.Articulos.Include(m => m.Vendedor)
+            var articulo = await _context.Articulos
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (articulo == null)
             {
@@ -444,8 +444,8 @@ namespace RematadosWeb.Controllers
 
 
             var usuario = HttpContext.Session.GetInt32("UsuarioID");
-            var misCompras = (from art in _context.Articulos where art.Comprador.Dni.Equals(usuario) select art).ToList();
-            misCompras = (from art in _context.Articulos where art.Estado == EstadoArticulo.VENDIDO select art).ToList();
+            var misCompras = (from art in _context.Articulos where art.Comprador.Dni.Equals(usuario) && art.Comprador.Dni.Equals(usuario) select art).Include(art => art.Vendedor).ToList();
+           
             
 
             return View(model: misCompras);

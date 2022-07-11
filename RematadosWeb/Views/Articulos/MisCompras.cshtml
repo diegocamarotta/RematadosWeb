@@ -23,9 +23,6 @@
                 @Html.DisplayNameFor(model => model.Precio)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Categoria)
             </th>
             <th></th>
@@ -48,16 +45,13 @@
                 @Html.DisplayFor(modelItem => item.Precio)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Categoria)
             </td>
             <td>
                     
-                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn normal">Detalles</a>
                 @*<a asp-action="CancelarArticulo" asp-route-id="@item.Id">Cancelar</a> |*@
-                <a asp-controller="Mensajes" asp-action="MensajesOperacion" asp-route-id="@item.Id">Mensajes</a>
+                <a asp-controller="Mensajes" asp-action="MensajesOperacion" asp-route-id="@item.Id" class="btn normal" >Mensajes</a>
             </td>
         </tr>
         }

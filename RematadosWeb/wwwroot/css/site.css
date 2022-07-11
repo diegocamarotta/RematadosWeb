@@ -76,6 +76,10 @@ body {
     /*modificamos click por defecto de Bootstrap*/
 }
 
+.dropdown li a {
+    vertical-align: middle;
+}
+
 .carousel-inner {
     padding: 1em;
 }
@@ -129,4 +133,128 @@ body {
 .card:hover {
     opacity:0.5;
     transition:0.5s;
+}
+
+.login {
+    min-height: 100vh;
+}
+
+.bg-image {
+    background-image: url('https://source.unsplash.com/WEQbe2jBg40/600x1200');
+    background-size: cover;
+    background-position: center;
+}
+
+.login-heading {
+    font-weight: 300;
+}
+
+.btn-login {
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
+    padding: 0.75rem 1rem;
+}
+
+.rem {
+    width: 23rem;
+}
+
+.normal{
+    cursor: pointer;
+    background-color: #383838;
+    color: #fff;
+   
+}
+
+.normal:hover{
+        background: #201c1c;
+        color: #fff;
+        text-decoration: none;
+
+    }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.registro {
+    background-color: lightgray;
+
+    background-size: cover;
+}
+
+  /*  #registro::after {
+        content: "";
+        background: url('https://i0.wp.com/pysnnoticias.com/wp-content/uploads/2021/09/compras-por-internet.webp') fixed;
+        opacity: 0.8;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        position: absolute;
+        z-index: -1;
+    }*/
+
+*[role="form"] {
+    max-width: 530px;
+    padding: 15px;
+    margin: 0 auto;
+    border-radius: 0.3em;
+    background-color: #f2f2f2;
+}
+
+    *[role="form"] h2 {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 40px;
+        font-weight: 600;
+        color: #000000;
+        margin-top: 5%;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+    }
+
+    *[role="form"] h4 {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 20px;
+        font-weight: 500;
+        color: #000000;
+        margin-top: 5%;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+    }
+
+
+.nav-items {
+    display: flex;
+    align-items: center; /*centra los items en axis principal*/
+}
+
+
+
+.btn:hover,
+.btn:active,
+.btn:focus {
+    background-color: black !important;
+    border-color: black !important;
+    outline: none !important;
+    
+}
+
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
+    background-color: black !important;
+    border-color: black !important;
+    outline: none !important;
+    
 }

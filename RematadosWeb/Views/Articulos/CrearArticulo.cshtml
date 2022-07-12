@@ -3,20 +3,20 @@
 @{
     ViewData["Title"] = "CrearArticulo";
 }
-@{ 
+@{
     <script type="text/javascript">
-    function ImgPre(input)
-    {
-        if (input.files[0])
+        function fotopreview(input)
         {
+            if (input.files[0])
+            {
             var uploadimg = new FileReader(); //reader
-            uploadimg.onload = function(displayimg) { 
+            uploadimg.onload = function (displayimg) {
                 $("#ImgPreview").attr('src', displayimg.target.result);// contenido
             }
             uploadimg.readAsDataURL(input.files[0]);
         }
     }
-        </script>
+    </script>
 }
 <h1> Crear Articulo Nuevo</h1>
 
@@ -52,62 +52,63 @@
             </div>
             <div class="form-group">
                 <label asp-for="Foto" class="col-sm-3 control-label"></label>
-                <input asp-for="Foto" class="form-control" accept="image/jpeg">
+                <input asp-for="Foto" class="form-control" accept="image/jpeg" onchange="fotopreview(this)">
+                <img id="ImgPreview" src="#" onerror="this.src='/photos/sinimagen.jpg';" style="max-width:150px">
             </div>
 
             <div class="form-group">
                 <br />
-                 <button type="submit" class="btn btn-primary btn-block normal">Crear</button>
-            </div>
-        </form>
-    </div> 
-  
-
-</body>
-@*<div class="row">
-    <div class="col-md-4">
-
-
-
-        <form asp-action="Create" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control" />
-                <span asp-validation-for="Descripcion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Precio" class="control-label"></label>
-                <input asp-for="Precio" class="form-control" />
-                <span asp-validation-for="Precio" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Categoria" class="control-label"></label>
-                <select asp-for="Categoria" class="form-control" asp-items="Html.GetEnumSelectList<Categoria>()"></select>
-                <span asp-validation-for="Categoria" class="text-danger"></span>
-            </div>    
-            <div class="form-group">
-                    <label asp-for="Foto" class="control-label"></label>
-                    <input asp-for="Foto" class="form-control" accept="image/jpeg" >
-                    
-                    
-                </div>
-            <div class="form-group">
-                <input type="submit" value="Crear" class="btn btn-primary normal" />
+                <button type="submit" class="btn btn-primary btn-block normal">Crear</button>
             </div>
         </form>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index" class="btn btn-primary normal">Volver</a>
-</div>*@
+
+</body>
+@*<div class="row">
+        <div class="col-md-4">
+
+
+
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Nombre" class="control-label"></label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Descripcion" class="control-label"></label>
+                    <input asp-for="Descripcion" class="form-control" />
+                    <span asp-validation-for="Descripcion" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Precio" class="control-label"></label>
+                    <input asp-for="Precio" class="form-control" />
+                    <span asp-validation-for="Precio" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Categoria" class="control-label"></label>
+                    <select asp-for="Categoria" class="form-control" asp-items="Html.GetEnumSelectList<Categoria>()"></select>
+                    <span asp-validation-for="Categoria" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                        <label asp-for="Foto" class="control-label"></label>
+                        <input asp-for="Foto" class="form-control" accept="image/jpeg" >
+
+
+                    </div>
+                <div class="form-group">
+                    <input type="submit" value="Crear" class="btn btn-primary normal" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index" class="btn btn-primary normal">Volver</a>
+    </div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

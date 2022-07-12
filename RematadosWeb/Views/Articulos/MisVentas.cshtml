@@ -62,7 +62,6 @@
                 }
 
                 <a asp-action="Details" asp-route-id="@item.Id" class="btn normal">Detalles</a> 
-                @using Microsoft.AspNetCore.Http;
                 @if (@Context.Session.GetInt32("UsuarioID") == item.Vendedor.Dni && item.Estado != EstadoArticulo.VENDIDO)
                 {
                     <a asp-action="CancelarArticulo" asp-route-id="@item.Id" class="btn normal">Cancelar</a>

@@ -1,54 +1,71 @@
 ﻿@model RematadosWeb.Models.Articulo
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar";
 }
+@{
+    <script type="text/javascript">
+        function fotopreview(input)
+        {
+            if (input.files[0])
+            {
+                var uploadimg = new FileReader(); //reader
+                uploadimg.onload = function(displayimg) {
+                    $("#ImgPreview").attr('src', displayimg.target.result);// contenido
+                }
+                uploadimg.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+}
+<h1>Editar Articulo</h1>
 
-<h1>Edit</h1>
 
-<h4>Articulo</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+<body class="registro">
+    <div class="container">
+
+        <form class="form-horizontal" role="form" asp-action="Edit" enctype="multipart/form-data">
+            <h4>Modifique los datos</h4>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
+                <label asp-for="Nombre" class="col-sm-3 control-label"></label>
                 <input asp-for="Nombre" class="form-control" />
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
+                <label asp-for="Descripcion" class="col-sm-3 control-label"></label>
                 <input asp-for="Descripcion" class="form-control" />
                 <span asp-validation-for="Descripcion" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Precio" class="control-label"></label>
+                <label asp-for="Precio" class="col-sm-3 control-label"></label>
                 <input asp-for="Precio" class="form-control" />
                 <span asp-validation-for="Precio" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Estado" class="control-label"></label>
-                <select asp-for="Estado" class="form-control"></select>
-                <span asp-validation-for="Estado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Categoria" class="control-label"></label>
-                <select asp-for="Categoria" class="form-control"></select>
+                <label asp-for="Categoria" class="col-sm-3 control-label"></label>
+                <select asp-for="Categoria" class="form-control" asp-items="Html.GetEnumSelectList<Categoria>()"></select>
                 <span asp-validation-for="Categoria" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <label asp-for="Foto" class="col-sm-3 control-label"></label>
+                <input asp-for="Foto" class="form-control" accept="image/jpeg" onchange="fotopreview(this)">
+                <img id="ImgPreview" src="@Url.Content(String.Format("~/photos/" + Model.Id + ".jpg"))" onerror="this.src='/photos/sinimagen.jpg';" style="max-width:150px">
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary btn-block normal" />
             </div>
         </form>
+      
     </div>
-</div>
+</body>
 
-<div>
-    @Html.ActionLink("Volver", null, null, null, new { href = @Context.Request.Headers["Referer"] })
-</div>
+    <div>
+        @Html.ActionLink("Volver", null, null, null, new { href = @Context.Request.Headers["Referer"] })
+    </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

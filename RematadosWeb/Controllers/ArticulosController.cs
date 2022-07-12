@@ -244,7 +244,7 @@ namespace RematadosWeb.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,Nombre,Descripcion,Precio,Estado,Categoria")] Articulo articulo)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Nombre,Descripcion,Precio,Estado,Categoria,Foto")] Articulo articulo)
         {
             if (id != articulo.Id)
             {
@@ -257,6 +257,16 @@ namespace RematadosWeb.Controllers
                 {
                     _context.Update(articulo);
                     await _context.SaveChangesAsync();
+
+                    if (articulo.Foto != null)
+                    {
+                        //var uniqueFileName = GetUniqueFileName(model.MyImage.FileName);
+                        var uploads = Path.Combine(hostingEnvironment.ContentRootPath, "wwwroot/photos");
+                        var filePath = Path.Combine(uploads, articulo.Id + ".jpg");
+                        articulo.Foto.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                        //to do : Save uniqueFileName  to your db table   
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -433,8 +443,10 @@ namespace RematadosWeb.Controllers
 
 
             var usuario = HttpContext.Session.GetInt32("UsuarioID");
-            var misVentas = (from art in _context.Articulos where art.Vendedor.Dni.Equals(usuario) select art).Include(art => art.Vendedor).ToList();
-          
+            var misVentas = await (from art in _context.Articulos where art.Vendedor.Dni.Equals(usuario) select art).Include(art => art.Vendedor).ToListAsync();
+
+            
+            
             return View(model: misVentas);
         }
 
@@ -444,7 +456,7 @@ namespace RematadosWeb.Controllers
 
 
             var usuario = HttpContext.Session.GetInt32("UsuarioID");
-            var misCompras = (from art in _context.Articulos where art.Comprador.Dni.Equals(usuario) && art.Comprador.Dni.Equals(usuario) select art).Include(art => art.Vendedor).ToList();
+            var misCompras = await (from art in _context.Articulos where art.Comprador.Dni.Equals(usuario) && art.Comprador.Dni.Equals(usuario) select art).Include(art => art.Vendedor).ToListAsync();
            
             
 

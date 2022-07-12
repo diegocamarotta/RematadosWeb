@@ -32,7 +32,7 @@ namespace RematadosWeb.Controllers
             var usrActual = HttpContext.Session.GetInt32("UsuarioID");
 
 
-            var misItems = (from items in _context.ItemCarritos where items.Usuario.Dni.Equals(usrActual) select items).Include(items => items.Articulo).ToList();
+            var misItems = await (from items in _context.ItemCarritos where items.Usuario.Dni.Equals(usrActual) select items).Include(items => items.Articulo).ToListAsync();
             
 
             return View(model: misItems);

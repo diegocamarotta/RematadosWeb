@@ -36,14 +36,15 @@
                     <td>
 
 
-                        <a asp-action="ConfirmarCompra" asp-route-id="@item." class="btn normal" >Continuar Compra</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn normal" >Eliminar</a>
+                        @*<a asp-action="ConfirmarCompra" asp-route-id="@item.Id" class="btn normal">Continuar Compra</a>*@
+                        <a asp-action="Comprar" asp-controller="Articulos" class="btn normal" asp-route-id="@item.Articulo.Id">Continuar Compra</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn normal">Eliminar</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-    <a asp-action="ComprarTodo"> Comprar Todo</a> @Html.Raw(" | ")
+    <a asp-action="ComprarTodo" class="compra"> Comprar Todo</a> @Html.Raw(" | ")
     <a asp-action="VaciarCarrito"> Vaciar Carrito</a>
 
 }
@@ -55,3 +56,31 @@ else
     <div>Tu carrito de compras esta vacio!</div>
 }
 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    const compras = document.querySelectorAll('.compra');
+
+    // Crear función para mostrar alerta
+    function comprar(e) {
+
+        /*e.preventDefault();*/
+        Swal.fire({
+            title: 'Compra exitosa!',
+            text: 'Volviendo al carrito...',
+            icon: 'success',
+            showConfirmButton: false
+            //It does close the popup when I click on close button
+            // Encadena la promesa para saber lo que pasó en la ventana modal
+        }).then((result) => {
+            if (result) { // if confirm clicked....
+                /* $('#input').submit(); // submit form*/
+            }
+        })
+
+    }
+
+    compras.forEach(btn => btn.addEventListener('click', comprar));
+
+
+</script>

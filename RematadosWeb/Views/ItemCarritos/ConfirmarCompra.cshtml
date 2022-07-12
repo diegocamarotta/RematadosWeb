@@ -42,9 +42,40 @@
 
         <br />
     }
-    <input type="submit" class="btn btn-primary" value="Submit">
+    <input type="submit" class="btn btn-primary compra" value="Submit">
+
 </form>
 <a asp-action="ConfirmarCompra">Confirmar</a>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    const compras = document.querySelectorAll('.compra');
+
+    // Crear función para mostrar alerta
+    function comprar(e) {
+
+        /*e.preventDefault();*/
+        Swal.fire({
+            title: 'Compraste exitosamente @Model.ToString()!',
+            text: 'Volviendo al carrito',
+            icon: 'success',
+            showConfirmButton: false
+            //It does close the popup when I click on close button
+            // Encadena la promesa para saber lo que pasó en la ventana modal
+        }).then((result) => {
+            if (result) { // if confirm clicked....
+                /* $('#input').submit(); // submit form*/
+            }
+        })
+
+    }
+
+    compras.forEach(btn => btn.addEventListener('click', comprar));
+
+
+</script>
+
 
 
 

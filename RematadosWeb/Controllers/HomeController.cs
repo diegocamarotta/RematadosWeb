@@ -60,7 +60,6 @@ namespace RematadosWeb.Controllers
 
 
 
-            //var item = _context.Usuarios.FindAsync(usr.Dni);
             var usuario = new UsuariosController(_context).GetUsuarioFromId(usr.Dni);
 
             if (usuario != null && usuario.Dni == usr.Dni && usuario.Password == usr.Password)

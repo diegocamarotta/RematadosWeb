@@ -35,9 +35,7 @@ namespace RematadosWeb.Controllers
             var usr = new UsuariosController(_context).GetUsuarioFromId(usrActual.Value);
 
             var articulos = await _context.Articulos.Where(articulos => articulos.Vendedor != usr && articulos.Estado == EstadoArticulo.EN_VENTA && articulos.Estado != EstadoArticulo.VENDIDO).ToListAsync();
-            //articulos = await _context.Articulos.Where(articulos => articulos.Vendedor.Dni == 1).ToListAsync();
-            //articulos = await _context.Articulos.Where(articulos => articulos.Vendedor != usr).ToListAsync();
-            //articulos = await _context.Articulos.Where(articulos => articulos.Estado != EstadoArticulo.VENDIDO).ToListAsync();
+
             articulos = articulos.OrderBy(i => i.Categoria).ThenBy(i => i.Nombre).ToList();
 
 
@@ -70,35 +68,7 @@ namespace RematadosWeb.Controllers
         }
 
 
-        //public async Task<IActionResult> Buscar(string id)
-        //{
 
-        //    /* var articulos = await _context.Articulos.Where(articulos => articulos.Nombre.Contains(id)).ToListAsync();
-        //      articulos = articulos.OrderBy(i => i.Categoria).ThenBy(i => i.Nombre).ToList();
-        //      return View(articulos);*/
-
-        //    //var usrActual = HttpContext.Session.GetInt32("UsuarioID");
-        //    //var usr = new UsuariosController(_context).GetUsuarioFromId(usrActual.Value);
-
-        //    //var articulos = await _context.Articulos.Where(articulos => articulos.Vendedor != usr && articulos.Estado == EstadoArticulo.EN_VENTA && articulos.Estado != EstadoArticulo.VENDIDO).ToListAsync();
-        //    ////articulos = await _context.Articulos.Where(articulos => articulos.Vendedor.Dni == 1).ToListAsync();
-        //    ////articulos = await _context.Articulos.Where(articulos => articulos.Vendedor != usr).ToListAsync();
-        //    ////articulos = await _context.Articulos.Where(articulos => articulos.Estado != EstadoArticulo.VENDIDO).ToListAsync();
-        //    //articulos = articulos.OrderBy(i => i.Categoria).ThenBy(i => i.Nombre).ToList();
-
-
-        //    //var articulos = await _context.Articulos.Where(articulos => articulos.Estado == EstadoArticulo.EN_VENTA).ToListAsync();
-        //    //articulos = articulos.OrderBy(i => i.Categoria).ThenBy(i => i.Nombre).ToList();
-        //    return View(articulos);
-
-
-        //}
-
-        ////[HttpPost, ActionName("Buscar")]
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-
-        //public async Task<IActionResult> BuscarConfirmado(string id)
         public async Task<IActionResult> Buscar(string id)
         {
             var input = Request.Form["Busqueda"];
@@ -108,7 +78,6 @@ namespace RematadosWeb.Controllers
 
             var articulos = await _context.Articulos.Where(articulos => articulos.Nombre.Contains(input) && articulos.Vendedor != usr && articulos.Estado == EstadoArticulo.EN_VENTA && articulos.Estado != EstadoArticulo.VENDIDO).ToListAsync();
 
-            //articulos = await _context.Articulos.Where(articulos => articulos.Vendedor != usr && articulos.Estado == EstadoArticulo.EN_VENTA && articulos.Estado != EstadoArticulo.VENDIDO).ToListAsync();
 
 
 
@@ -432,16 +401,9 @@ namespace RematadosWeb.Controllers
             var usr = new UsuariosController(_context).GetUsuarioFromId(usrActual.Value);
 
             var articulo = await _context.Articulos.FindAsync(id);
-            // _context.Update(articulo);
+
             var itemCarrito = await _context.ItemCarritos
                 .FirstOrDefaultAsync(m => m.Articulo == articulo && m.Usuario.Dni == usrActual.Value);
-
-            //var cant = Request.Form["Cantidad"];
-            //if (cant == "") {
-
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //int cantInt = Int32.Parse(cant);
 
             if (itemCarrito == null)
             {
@@ -465,7 +427,7 @@ namespace RematadosWeb.Controllers
         // POST: Articulos/Delete/5
         [HttpPost, ActionName("CancelarArticulo")]
         [ValidateAntiForgeryToken]
-        //public async Task<IActionResult> CancelarArticuloConfirmado(string id, [Bind("Id,Nombre,Descripcion,Precio,Estado,Categoria")] Articulo articulo)
+
         public async Task<IActionResult> CancelarArticuloConfirmado(string id)
         {
             var articulo = await _context.Articulos.FindAsync(id);

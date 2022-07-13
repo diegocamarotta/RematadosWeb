@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
     <link rel="stylesheet" href="~/css/search.css" />
-    @*<link rel="stylesheet" href="~/css/login.css" />*@
     <link rel="stylesheet" href="~/css/compra.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 
@@ -34,20 +33,7 @@
                     <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
 
                         <ul class="navbar-nav flex-grow-1 " id="navlinks" style="display:flex">
-                            @*<li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Articulos" asp-action="Index">Articulos</a>
-                    </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Mensajes" asp-action="Index">Mensajes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="ItemCarritos" asp-action="Index">ItemCarritos</a>
-                    </li>
-                            *@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Articulos" asp-action="CrearArticulo">Crear Articulo</a>
                             </li>
@@ -60,9 +46,7 @@
 
 
 
-                            @*<li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Salir">Salir</a>
-                    </li>*@
+         
                             <div class="nav-items">
                             <li>
                                 <div class="dropdown">
@@ -87,7 +71,7 @@
                     <form asp-controller="Articulos" name="formBusqueda" asp-action="Buscar" class="search" onsubmit="return validar()">
                         <input type="text" id="Busqueda" name="Busqueda" class="search-box" placeholder="Busca un artículo (celular, auto,electrodoméstico)">
                         <input type="submit" class="search-btn" value="Buscar">
-                        @*<button type="submit" class="search-btn">Buscar</button>*@
+
                     </form>
 
                 }
@@ -122,21 +106,14 @@
          window.onload = function ()
          {
 
-            //var usuarioActual = sessionStorage.getItem("UsuarioActual");
-            // if (usuarioActual == null || usuarioActual == 0)
-            // {
-            //     var navlinks = document.getElementById("navlinks");
-            //     navlinks.style.display = 'none';
-//
 
-//             }
 
         }
 
          function Salir() {
 
              Context.Session.SetInt32("UsuarioID", 0);
-             //sessionStorage.setItem("UsuarioActual", 0);
+
          }
 
 

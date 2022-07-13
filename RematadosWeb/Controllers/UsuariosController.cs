@@ -212,38 +212,14 @@ namespace RematadosWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Editar(int id, [Bind("Dni,Nombres,Apellidos,Email,Password")] Usuario usuario)
         {
-            //if (id != usuario.Dni)
-            //{
-            //    return NotFound();
-            //}
-
-            //if (ModelState.IsValid)
-            //{
-            //    //try
-            //{
-
-            //usuario.Password = GetUsuarioFromId(usuario.Dni).Password;
 
             _context.Update(usuario);
             await _context.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!UsuarioExists(usuario.Dni))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
 
             return RedirectToAction(nameof(MiPerfil));
 
         }
-        //return View(usuario);
-        // return RedirectToAction(nameof(MiPerfil));
+
 
 
         public async Task<IActionResult> Seguridad(int? id)
@@ -273,19 +249,7 @@ namespace RematadosWeb.Controllers
             return RedirectToAction(nameof(Index));
 
 
-            //    //var viejaPwd = Request.Form["viejaPWD"];
-            //    //var actualPwd = usuario.Password;
-            //    var nuevaPwd = Request.Form["nuevaPWD"];
 
-            //    if (!nuevaPwd.Equals(usuario.Password))
-            //    {
-            //        usuario.Password = nuevaPwd;
-            //        _context.Update(usuario);
-            //        await _context.SaveChangesAsync();
-
-            //    }
-
-            //return RedirectToAction(nameof(Index));
 
 
 

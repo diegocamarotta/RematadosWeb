@@ -8,16 +8,7 @@
 
 <h3>Borrar del carrito este elemento??</h3>
 <div>
-    @*<h4>ItemCarrito</h4>
-    <hr />*@
-    @*<dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Articulo.Nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Articulo.Nombre)
-        </dd>
-    </dl>*@
+
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />

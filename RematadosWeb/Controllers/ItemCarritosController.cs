@@ -53,55 +53,6 @@ namespace RematadosWeb.Controllers
         }
 
      
-        //public async Task<IActionResult> ConfirmarCompra()
-
-        //{
-
-        //    var usrActual = HttpContext.Session.GetInt32("UsuarioID");
-
-        //    var misItems = (from items in _context.ItemCarritos where items.Usuario.Dni.Equals(usrActual) select items).Include(items => items.Articulo).ToList();
-
-        //    return View(model: misItems);
-
-        //}
-
-
-
-
-
-        //[HttpPost, ActionName("ConfirmarCompra")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> ConfirmarCompraOk()
-        //{
-        //    var usrActual = HttpContext.Session.GetInt32("UsuarioID");
-        //    var usr = new UsuariosController(_context).GetUsuarioFromId(usrActual.Value);
-
-        //    var misItems = (from items in _context.ItemCarritos where items.Usuario.Dni.Equals(usrActual) select items).Include(items => items.Articulo).ToList();
-           
-
-        //    var artController = new ArticulosController(_context);
-        //    List<Articulo> articulos = new List<Articulo>();
-            
-        //    foreach (var item in misItems) {
-        //       var articulo =  artController.GetArticuloFromId(item.Articulo.Id);
-        //       articulos.Add(articulo);
-    
-        //    }
-
-        //    foreach (var a in articulos) {
-        //        a.Comprador = usr;
-        //        a.Estado = EstadoArticulo.VENDIDO;
-        //        _context.Update(a);
-        //    }
-
-            
-
-        //    await _context.SaveChangesAsync();
-        //    //return RedirectToAction(nameof(Index));
-        //    return View("Index");
-
-        //}
-
 
 
         // GET: ItemCarritos/Details/5

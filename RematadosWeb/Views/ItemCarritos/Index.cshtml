@@ -49,7 +49,7 @@
             }
         </tbody>
     </table>
-    <a asp-action="ComprarTodo" class="btn normal"> Comprar Todo</a>
+    <a asp-action="ComprarTodo" class="btn normal compra"> Comprar Todo</a>
     <a asp-action="VaciarCarrito" class="btn normal"> Vaciar Carrito</a>
 
 }
@@ -68,10 +68,10 @@ else
 
     // Crear función para mostrar alerta
     function comprar(e) {
-
+        var totalCarrito = @Model.Count();
         /*e.preventDefault();*/
         Swal.fire({
-            title: 'Compra exitosa!',
+            title: 'Compraste exitosamente ' + totalCarrito + ' items!',
             text: 'Volviendo al carrito...',
             icon: 'success',
             showConfirmButton: false

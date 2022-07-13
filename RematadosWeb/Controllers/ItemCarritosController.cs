@@ -34,6 +34,17 @@ namespace RematadosWeb.Controllers
 
             var misItems = await (from items in _context.ItemCarritos where items.Usuario.Dni.Equals(usrActual) select items).Include(items => items.Articulo).ToListAsync();
             
+            foreach (var item in misItems){
+                if (item.Articulo.Estado != EstadoArticulo.EN_VENTA) {
+                    _context.Remove(item);
+                    await _context.SaveChangesAsync();
+                    HttpContext.Session.SetString("CarritoActualizado", "true");
+
+                }
+            
+            }
+
+
 
             return View(model: misItems);
 

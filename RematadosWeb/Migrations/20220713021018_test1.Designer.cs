@@ -10,8 +10,8 @@ using RematadosWeb.Context;
 namespace RematadosWeb.Migrations
 {
     [DbContext(typeof(RematadosDatabaseContext))]
-    [Migration("20220711000234_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220713021018_test1")]
+    partial class test1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

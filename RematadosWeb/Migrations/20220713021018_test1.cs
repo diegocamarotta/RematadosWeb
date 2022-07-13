@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RematadosWeb.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class test1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

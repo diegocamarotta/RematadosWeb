@@ -5,6 +5,15 @@
 }
 
 <h1>Mi Carrito de compras</h1>
+@using Microsoft.AspNetCore.Http;
+@if (@Context.Session.GetString("CarritoActualizado") == "true")
+{
+   
+    Context.Session.SetString("CarritoActualizado", "false");
+    
+    <div>Algunos items de tu carrito ya han sido vendidos y se han removido!</div>
+
+}
 
 @if (@Model.Count() > 0)
 {
@@ -24,19 +33,15 @@
             @foreach (var item in Model)
             {
 
-
-
                 <tr>
                     <td>
-                        <img src="@Url.Content(String.Format("~/photos/" + item.Id + ".jpg"))" onerror="this.src='/photos/sinimagen.jpg';" style="max-width:150px">
+                        <img src="@Url.Content(String.Format("~/photos/" + item.Articulo.Id + ".jpg"))" onerror="this.src='/photos/sinimagen.jpg';" style="max-width:150px">
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Articulo.Nombre)
                     </td>
                     <td>
 
-
-                        @*<a asp-action="ConfirmarCompra" asp-route-id="@item.Id" class="btn normal">Continuar Compra</a>*@
                         <a asp-action="Comprar" asp-controller="Articulos" class="btn normal" asp-route-id="@item.Articulo.Id">Continuar Compra</a>
                         <a asp-action="Delete" asp-route-id="@item.Id" class="btn normal">Eliminar</a>
                     </td>
@@ -44,8 +49,8 @@
             }
         </tbody>
     </table>
-    <a asp-action="ComprarTodo" class="compra"> Comprar Todo</a> @Html.Raw(" | ")
-    <a asp-action="VaciarCarrito"> Vaciar Carrito</a>
+    <a asp-action="ComprarTodo" class="btn normal"> Comprar Todo</a>
+    <a asp-action="VaciarCarrito" class="btn normal"> Vaciar Carrito</a>
 
 }
 else

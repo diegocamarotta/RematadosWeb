@@ -198,6 +198,7 @@ namespace RematadosWeb.Controllers
 
             var articulo = await _context.Articulos
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (articulo == null)
             {
                 return NotFound();
@@ -218,7 +219,18 @@ namespace RematadosWeb.Controllers
             articulo.Comprador = usr;
             articulo.Estado = EstadoArticulo.VENDIDO;
 
+            var itemCarrito = await _context.ItemCarritos.Include(e => e.Articulo)
+                .FirstOrDefaultAsync(e => e.Articulo.Id == id && e.Usuario.Dni ==  usrActual.Value);
+
+
+
             _context.Update(articulo);
+
+            if (itemCarrito != null)
+            {
+                _context.Remove(itemCarrito);
+                HttpContext.Session.SetString("CarritoActualizado", "true");
+            }
             await _context.SaveChangesAsync();
             Thread.Sleep(3000);
             return RedirectToAction(nameof(Index));
@@ -351,6 +363,9 @@ namespace RematadosWeb.Controllers
 
             var articulo = await _context.Articulos
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+
+
             if (articulo == null)
             {
                 return NotFound();
@@ -400,7 +415,7 @@ namespace RematadosWeb.Controllers
             var articulo = await _context.Articulos.FindAsync(id);
             // _context.Update(articulo);
             var itemCarrito = await _context.ItemCarritos
-                .FirstOrDefaultAsync(m => m.Articulo == articulo);
+                .FirstOrDefaultAsync(m => m.Articulo == articulo && m.Usuario.Dni == usrActual.Value);
 
             //var cant = Request.Form["Cantidad"];
             //if (cant == "") {

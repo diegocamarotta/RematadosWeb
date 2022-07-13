@@ -68,6 +68,8 @@ namespace RematadosWeb.Controllers
 
 
                 HttpContext.Session.SetInt32("UsuarioID", usr.Dni);
+                HttpContext.Session.SetString("UsuarioNombre", usuario.Nombres);
+                HttpContext.Session.SetString("CarritoActualizado", "false");
 
                 var usuarioID = HttpContext.Session.GetInt32("UsuarioID");
 

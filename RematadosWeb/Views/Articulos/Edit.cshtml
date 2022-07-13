@@ -10,10 +10,10 @@
             if (input.files[0])
             {
                 var uploadimg = new FileReader(); //reader
-                uploadimg.onload = function(displayimg) {
+                uploadimg.onload = function(displayimg) { //evento
                     $("#ImgPreview").attr('src', displayimg.target.result);// contenido
                 }
-                uploadimg.readAsDataURL(input.files[0]);
+                uploadimg.readAsDataURL(input.files[0]); //lee el string almacenado en el Blob/File
             }
         }
     </script>

@@ -70,28 +70,47 @@ namespace RematadosWeb.Controllers
         }
 
 
+        //public async Task<IActionResult> Buscar(string id)
+        //{
+
+        //    /* var articulos = await _context.Articulos.Where(articulos => articulos.Nombre.Contains(id)).ToListAsync();
+        //      articulos = articulos.OrderBy(i => i.Categoria).ThenBy(i => i.Nombre).ToList();
+        //      return View(articulos);*/
+
+        //    //var usrActual = HttpContext.Session.GetInt32("UsuarioID");
+        //    //var usr = new UsuariosController(_context).GetUsuarioFromId(usrActual.Value);
+
+        //    //var articulos = await _context.Articulos.Where(articulos => articulos.Vendedor != usr && articulos.Estado == EstadoArticulo.EN_VENTA && articulos.Estado != EstadoArticulo.VENDIDO).ToListAsync();
+        //    ////articulos = await _context.Articulos.Where(articulos => articulos.Vendedor.Dni == 1).ToListAsync();
+        //    ////articulos = await _context.Articulos.Where(articulos => articulos.Vendedor != usr).ToListAsync();
+        //    ////articulos = await _context.Articulos.Where(articulos => articulos.Estado != EstadoArticulo.VENDIDO).ToListAsync();
+        //    //articulos = articulos.OrderBy(i => i.Categoria).ThenBy(i => i.Nombre).ToList();
+
+
+        //    //var articulos = await _context.Articulos.Where(articulos => articulos.Estado == EstadoArticulo.EN_VENTA).ToListAsync();
+        //    //articulos = articulos.OrderBy(i => i.Categoria).ThenBy(i => i.Nombre).ToList();
+        //    return View(articulos);
+
+
+        //}
+
+        ////[HttpPost, ActionName("Buscar")]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+
+        //public async Task<IActionResult> BuscarConfirmado(string id)
         public async Task<IActionResult> Buscar(string id)
         {
-
-            /* var articulos = await _context.Articulos.Where(articulos => articulos.Nombre.Contains(id)).ToListAsync();
-              articulos = articulos.OrderBy(i => i.Categoria).ThenBy(i => i.Nombre).ToList();
-              return View(articulos);*/
-            var articulos = await _context.Articulos.Where(articulos => articulos.Estado == EstadoArticulo.EN_VENTA).ToListAsync();
-            articulos = articulos.OrderBy(i => i.Categoria).ThenBy(i => i.Nombre).ToList();
-            return View(articulos);
-
-
-        }
-
-        [HttpPost, ActionName("Buscar")]
-        [ValidateAntiForgeryToken]
-
-        public async Task<IActionResult> BuscarConfirmado(string id)
-        {
             var input = Request.Form["Busqueda"];
+           
+            var usrActual = HttpContext.Session.GetInt32("UsuarioID");
+            var usr = new UsuariosController(_context).GetUsuarioFromId(usrActual.Value);
+
+            var articulos = await _context.Articulos.Where(articulos => articulos.Nombre.Contains(input) && articulos.Vendedor != usr && articulos.Estado == EstadoArticulo.EN_VENTA && articulos.Estado != EstadoArticulo.VENDIDO).ToListAsync();
+
+            //articulos = await _context.Articulos.Where(articulos => articulos.Vendedor != usr && articulos.Estado == EstadoArticulo.EN_VENTA && articulos.Estado != EstadoArticulo.VENDIDO).ToListAsync();
 
 
-            var articulos = await _context.Articulos.Where(articulos => articulos.Nombre.Contains(input)).ToListAsync();
 
             articulos = articulos.OrderBy(i => i.Categoria).ThenBy(i => i.Nombre).ToList();
 

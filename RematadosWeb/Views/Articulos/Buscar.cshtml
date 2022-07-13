@@ -12,6 +12,9 @@
     <thead>
         <tr>
             <th>
+                Imagen
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
             <th>
@@ -29,24 +32,28 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descripcion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Precio)
-                </td>
+        <tr>
+            <td>
+                <img src="@Url.Content(String.Format("~/photos/" + item.Id + ".jpg"))" onerror="this.src='/photos/sinimagen.jpg';" style="max-width:150px">
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+               <span>$</span> @Html.DisplayFor(modelItem => item.Precio)
+            </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Categoria)
-                </td>
-                <td>
-                    <a asp-action="AñadirAlCarrito" class="normal-btn" asp-route-id="@item.Id">Añadir al carrito</a>
-                </td>
-            </tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria)
+            </td>
+            <td>
+                <a asp-action="Comprar" class="btn normal" asp-route-id="@item.Id">Comprar</a>
+                <a asp-action="AñadirAlCarrito" class="btn normal" asp-route-id="@item.Id">Añadir al carrito</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

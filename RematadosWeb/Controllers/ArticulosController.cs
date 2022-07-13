@@ -64,6 +64,11 @@ namespace RematadosWeb.Controllers
             return View();
         }
 
+        public IActionResult VolverAVentas()
+        {
+            return View("MisVentas");
+        }
+
 
         public async Task<IActionResult> Buscar(string id)
         {

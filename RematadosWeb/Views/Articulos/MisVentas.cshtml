@@ -61,18 +61,18 @@
 
                 }
 
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn normal">Detalles</a> 
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn normal">Detalles</a>
                 @if (@Context.Session.GetInt32("UsuarioID") == item.Vendedor.Dni && item.Estado != EstadoArticulo.VENDIDO)
                 {
                     <a asp-action="CancelarArticulo" asp-route-id="@item.Id" class="btn normal">Cancelar</a>
-
+                    <a asp-action="Continuar" asp-route-id="@item.Id" class="btn normal">Continuar</a>
                 }
 
 
                 @if (item.Estado == EstadoArticulo.VENDIDO)
                 {
                     <a asp-controller="Mensajes" asp-action="MensajesOperacion" asp-route-id="@item.Id" class="btn normal">Mensajes</a>
-      
+
 
                 }
 

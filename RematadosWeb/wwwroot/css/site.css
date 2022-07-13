@@ -141,8 +141,21 @@ body {
     transition: 0.5s;
 }
 
+.not-hover {
+    color:#201c1c;
+}
+
+.not-hover:hover {
+    color:#000000;
+    text-decoration:none;
+}
+
 .precio::before {
-    content:"$";
+    content:"$ ";
+}
+
+.precioUSD::before {
+    content: "U$S ";
 }
 
 .login {
@@ -175,6 +188,8 @@ body {
     color: #fff;
    
 }
+
+
 
 .normal:hover{
         background: #201c1c;
@@ -280,7 +295,7 @@ input[type=number] {
     padding: 20px;
     max-width: 700px;
     max-height: 500px;
-    text-align: left margin: auto;
+    text-align: left;   
     overflow-y: scroll;
     border: 2px solid lightgray;
 }
@@ -359,4 +374,5 @@ input[type=number] {
     right: 20px;
     margin: 0px 0px 0px 0px;
     min-height: 100px;
+}
 

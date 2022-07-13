@@ -62,9 +62,14 @@
     </div>
 </body>
 
+    
     <div>
         @Html.ActionLink("Volver", null, null, null, new { href = @Context.Request.Headers["Referer"] })
     </div>
+
+@*<div>
+    <a asp-controller="Articulos" asp-action="VolverAVentas" asp-route-id="@Model.Id" class="btn normal">Volver</a>
+</div>*@
 
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

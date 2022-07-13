@@ -8,7 +8,7 @@
 <br />
 <br />
 
-<table class="table">
+@*<table class="table">
     <thead>
         <tr>
             <th>
@@ -73,7 +73,7 @@
             </tr>
         }
     </tbody>
-</table>
+</table>*@
 
 
 
@@ -118,13 +118,20 @@
 
                             <div class="carousel-item active">
                                 <div class="card">
-                                    <a href="@Url.ActionLink("Articulo", "Articulos", new { id = i.Id })">
+                                    <a class="not-hover" href="@Url.ActionLink("Articulo", "Articulos", new { id = i.Id })">
                                         <div class="img-wrapper">
                                             <img src="@Url.Content(String.Format("~/photos/" + i.Id + ".jpg"))" class="d-block w-100" onerror="this.src='/photos/sinimagen.jpg';" />
                                         </div>
                                         <div class="card-body">
                                             <h5 class="card-title">@Html.DisplayFor(modelItem => i.Nombre)</h5>
-                                            <h5 class="card-title precio">@Html.DisplayFor(modelItem => i.Precio)</h5>
+                                            @if (i.Categoria == Categoria.INMUEBLES)
+                                            {
+                                                <h5 class="card-title precioUSD">@Html.DisplayFor(modelItem => i.Precio)</h5>
+                                            }
+                                            else
+                                            {
+                                                <h5 class="card-title precio">@Html.DisplayFor(modelItem => i.Precio)</h5>
+                                            }
                                             <p class="card-text">
                                                 @Html.DisplayFor(modelItem => i.Descripcion)
                                             </p>
@@ -157,13 +164,20 @@
                             <div class="carousel-item">
                                 <div class="card">
                                     @*<a href="@Url.ActionLink("Details", "Articulos", "")" , new { id="@i.Id" }>*@
-                                    <a href="@Url.ActionLink("Articulo", "Articulos", new { id = i.Id })">
+                                    <a class="not-hover" href="@Url.ActionLink("Articulo", "Articulos", new { id = i.Id })">
                                         <div class="img-wrapper">
                                             <img src="@Url.Content(String.Format("~/photos/" + i.Id + ".jpg"))" class="d-block w-100" onerror="this.src='/photos/sinimagen.jpg';" alt="...">
                                         </div>
                                         <div class="card-body">
                                             <h5 class="card-title">@Html.DisplayFor(modelItem => i.Nombre)</h5>
-                                            <h5 class="card-title precio">@Html.DisplayFor(modelItem => i.Precio)</h5>
+                                            @if (i.Categoria == Categoria.INMUEBLES)
+                                            {
+                                                <h5 class="card-title precioUSD">@Html.DisplayFor(modelItem => i.Precio)</h5>
+                                            }
+                                            else
+                                            {
+                                                <h5 class="card-title precio">@Html.DisplayFor(modelItem => i.Precio)</h5>
+                                            }
                                             <p class="card-text">
                                                 @Html.DisplayFor(modelItem => i.Descripcion)
                                             </p>

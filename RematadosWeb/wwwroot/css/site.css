@@ -141,8 +141,21 @@ body {
     transition: 0.5s;
 }
 
+.not-hover {
+    color:#201c1c;
+}
+
+.not-hover:hover {
+    color:#000000;
+    text-decoration:none;
+}
+
 .precio::before {
-    content:"$";
+    content:"$ ";
+}
+
+.precioUSD::before {
+    content: "U$S ";
 }
 
 .login {
@@ -175,6 +188,8 @@ body {
     color: #fff;
    
 }
+
+
 
 .normal:hover{
         background: #201c1c;
